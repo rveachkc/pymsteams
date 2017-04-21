@@ -50,7 +50,7 @@ class cardsection:
 	def text(self, stext):
 		self.payload["text"] = stext
 
-	def linkbutton(self, buttontext, buttonurl):
+	def linkButton(self, buttontext, buttonurl):
 		self.payload["potentialAction"] = [
 			{
 			"@context" : "http://schema.org",
@@ -60,13 +60,13 @@ class cardsection:
 			}
 		]
 
-	def disablemarkdown(self):
+	def disableMarkdown(self):
 		self.payload["markdown"] = False
 
-	def enablemarkdown(self):
+	def enableMarkdown(self):
 		self.payload["markdown"] = True
 
-	def dumpsection(self):
+	def dumpSection(self):
 		return self.payload
 
 	def __init__(self):
@@ -87,7 +87,7 @@ class connectorcard:
 		else:
 			self.payload["themeColor"] = themeColor
 
-	def linkbutton(self, buttontext, buttonurl):
+	def linkButton(self, buttontext, buttonurl):
 		self.payload["potentialAction"] = [
 			{
 			"@context" : "http://schema.org",
@@ -105,7 +105,7 @@ class connectorcard:
 		if "sections" not in self.payload.keys():
 			self.payload["sections"] = []
 
-		self.payload["sections"].append(newsection.dumpsection())
+		self.payload["sections"].append(newsection.dumpSection())
 
 	def printme(self):
 		print("hookurl: %s" % self.hookurl)
