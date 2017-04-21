@@ -1,10 +1,11 @@
 #!/usr/bin/env python
 
 # https://github.com/rveachkc/pymsteams/
+# reference: https://dev.outlook.com/connectors/reference
 
 import requests
 
-class section:
+class cardsection:
 
 	def title(self, stitle):
 		# title of the section
@@ -29,17 +30,21 @@ class section:
 
 	def addFact(self, factname, factvalue):
 		if "facts" not in self.payload.keys():
-			self.payload["facts"] = [ { factname : factvalue } ]
-		else:
-			self.payload["facts"].append({ factname : factvalue })
+			self.payload["facts"] = []
 
-	def addImage(self, simage, stitle=None):
+		newfact = {
+			"name" : factname,
+			"value" : factvalue
+		}
+		self.payload["facts"].append(newfact)
+
+	def addImage(self, simage, ititle=None):
 		if "images" not in self.payload.keys():
 			self.payload["images"] = []
 		imobj = {}
 		imobj["image"] = simage
-		if stitle:
-			imobj["title"] = stitle
+		if ititle:
+			imobj["title"] = ititle
 		self.payload["images"].append(imobj)
 
 	def text(self, stext):
@@ -55,14 +60,16 @@ class section:
 			}
 		]
 
-	def disablemarkdown():
+	def disablemarkdown(self):
 		self.payload["markdown"] = False
 
-	def enablemarkdown():
+	def enablemarkdown(self):
 		self.payload["markdown"] = True
 
-	def __init__(self, sslug):
-		self.slug=sslug
+	def dumpsection(self):
+		return self.payload
+
+	def __init__(self):
 		self.payload = {}
 
 
@@ -92,6 +99,13 @@ class connectorcard:
 
 	def newhookurl(self, nhookurl):
 		self.hookurl = nhookurl
+
+	def addSection(self, newsection):
+		# this function expects a cardsection object
+		if "sections" not in self.payload.keys():
+			self.payload["sections"] = []
+
+		self.payload["sections"].append(newsection.dumpsection())
 
 	def printme(self):
 		print("hookurl: %s" % self.hookurl)
