@@ -87,15 +87,18 @@ class connectorcard:
 		else:
 			self.payload["themeColor"] = themeColor
 
-	def linkButton(self, buttontext, buttonurl):
-		self.payload["potentialAction"] = [
-			{
+	def addLinkButton(self, buttontext, buttonurl):
+		if "potentialAction" not in self.payload:
+			self.payload = ["potentialAction"] = []
+
+		thisbutton = {
 			"@context" : "http://schema.org",
 			"@type" : "ViewAction",
 			"name" : buttontext,
 			"target" : [ buttonurl ]
-			}
-		]
+		}
+
+		self.payload.append(thisbutton)
 
 	def newhookurl(self, nhookurl):
 		self.hookurl = nhookurl
