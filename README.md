@@ -32,7 +32,7 @@ myTeamsMessage.title("This is my message title")
 
 ### Add a link button
 ```python
-myTeamsMessage.linkbutton("This is the button Text", "https://github.com/rveachkc/pymsteams/")
+myTeamsMessage.addLinkButton("This is the button Text", "https://github.com/rveachkc/pymsteams/")
 ```
 
 ### Change URL
