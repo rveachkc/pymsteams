@@ -89,7 +89,7 @@ class connectorcard:
 
 	def addLinkButton(self, buttontext, buttonurl):
 		if "potentialAction" not in self.payload:
-			self.payload = ["potentialAction"] = []
+			self.payload["potentialAction"] = []
 
 		thisbutton = {
 			"@context" : "http://schema.org",
@@ -98,7 +98,7 @@ class connectorcard:
 			"target" : [ buttonurl ]
 		}
 
-		self.payload.append(thisbutton)
+		self.payload["potentialAction"].append(thisbutton)
 
 	def newhookurl(self, nhookurl):
 		self.hookurl = nhookurl
