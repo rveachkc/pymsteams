@@ -85,7 +85,7 @@ class connectorcard:
 		if mcolor.lower() == "red":
 			self.payload["themeColor"] = "E81123"
 		else:
-			self.payload["themeColor"] = themeColor
+			self.payload["themeColor"] = mcolor
 
 	def addLinkButton(self, buttontext, buttonurl):
 		if "potentialAction" not in self.payload:
