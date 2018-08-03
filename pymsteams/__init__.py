@@ -81,6 +81,9 @@ class connectorcard:
     def title(self, mtitle):
         self.payload["title"] = mtitle
 
+    def summary(self, msummary):
+        self.payload["summary"] = msummary
+
     def color(self, mcolor):
         if mcolor.lower() == "red":
             self.payload["themeColor"] = "E81123"
