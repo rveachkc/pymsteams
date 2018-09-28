@@ -119,7 +119,7 @@ class connectorcard:
 
     def send(self):
         headers = {"Content-Type":"application/json"}
-        r = requests.post(self.hookurl, json=self.payload, headers=headers)
+        r = requests.post(self.hookurl, json=self.payload, headers=headers, proxies=self.proxies)
 
         if r.status_code == requests.codes.ok:
             return True
@@ -127,9 +127,20 @@ class connectorcard:
             print(r.text)
             return False
 
-    def __init__(self, hookurl):
+    def __init__(self, hookurl, http_proxy=None, https_proxy=None):
         self.payload = {}
         self.hookurl = hookurl
+        self.proxies = {}
+
+        if http_proxy:
+            self.proxies['http'] = http_proxy
+
+        if https_proxy:
+            self.proxies['https'] = https_proxy
+
+        if not self.proxies:
+            self.proxies = None
+
 
 def formaturl(display, url):
     mdurl = "[%s](%s)" % (display, url)
