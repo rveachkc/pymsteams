@@ -81,7 +81,7 @@ jobs:
           name: upload to pypi
           command: |
             . venv/bin/activate
-            twine upload dist/*
+            twine --config-file ~/.pypirc upload dist/*
 
 workflows:
   version: 2
