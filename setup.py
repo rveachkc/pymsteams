@@ -7,7 +7,7 @@ from m2r import parse_from_file
 from setuptools import setup
 from setuptools.command.install import install
 
-VERSION = "0.1.5"
+VERSION = "0.1.6"
 
 def readme():
     """ print long description """
