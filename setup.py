@@ -3,6 +3,8 @@
 import os
 import sys
 
+import pypandoc
+
 from setuptools import setup
 from setuptools.command.install import install
 
@@ -10,8 +12,9 @@ VERSION = "0.1.5"
 
 def readme():
     """ print long description """
-    with open('README.md') as f:
-        return f.read()
+    return pypandoc.convert('README.md', 'rst')
+    #with open('README.md') as f:
+    #    return f.read()
 
 class VerifyVersionCommand(install):
     """Custom command to verify that the git tag matches our version"""

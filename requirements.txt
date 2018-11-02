@@ -1,1 +1,2 @@
+pypandoc>=0.7.0
 twine>=1.12.1
