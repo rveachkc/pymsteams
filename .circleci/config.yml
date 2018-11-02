@@ -48,6 +48,15 @@ jobs:
   
   
   deploy:
+    docker:
+      - image: circleci/python:3-stretch
+    working_directory: ~/repo
+
+    steps:
+      - checkout
+
+      - restore_cache:
+          key: v1-dependencies-{{ checksum "requirements.txt" }}
 
       - run:
           name: verify git tag vs version
