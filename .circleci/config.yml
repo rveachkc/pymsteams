@@ -75,10 +75,29 @@ jobs:
       - run: 
           name: make a source distribution
           command: |
+            . venv/bin/activate
             python setup.py sdist
 
       - run:
           name: upload to pypi
           command: |
             . venv/bin/activate
-            twine upload dist/*
+            twine upload --config-file ~/.pypirc dist/*
+
+workflows:
+  version: 2
+  build_and_deploy:
+    jobs:
+      - build:
+          filters:
+            tags:
+              only: /.*/
+      - deploy:
+          context: PYPI
+          requires:
+            - build
+          filters:
+            tags:
+              only: /[0-9]+(\.[0-9]+)*/
+            branches:
+              only: master

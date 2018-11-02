@@ -3,15 +3,18 @@
 import os
 import sys
 
+from m2r import parse_from_file
 from setuptools import setup
 from setuptools.command.install import install
 
-VERSION = "0.1.5"
+VERSION = "0.1.6"
 
 def readme():
     """ print long description """
-    with open('README.md') as f:
-        return r.read()
+    return parse_from_file('README.md')
+    #return pypandoc.convert('README.md', 'rst')
+    #with open('README.md') as f:
+    #    return f.read()
 
 class VerifyVersionCommand(install):
     """Custom command to verify that the git tag matches our version"""
@@ -54,7 +57,7 @@ setup(
     keywords=['Microsoft', 'Teams'],
     packages=['pymsteams'],
     install_requires=[
-        'requests==2.18.4',
+        'requests==2.20.0',
     ],
     python_requires='>=3',
     cmdclass={
