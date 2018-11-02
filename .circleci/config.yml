@@ -92,6 +92,7 @@ workflows:
             tags:
               only: /.*/
       - deploy:
+          context: PYPI
           requires:
             - build
           filters:
