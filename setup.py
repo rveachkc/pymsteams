@@ -11,7 +11,7 @@ VERSION = "0.1.5"
 def readme():
     """ print long description """
     with open('README.md') as f:
-        return r.read()
+        return f.read()
 
 class VerifyVersionCommand(install):
     """Custom command to verify that the git tag matches our version"""
