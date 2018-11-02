@@ -3,8 +3,7 @@
 import os
 import sys
 
-import m2r
-
+from m2r import parse_from_file
 from setuptools import setup
 from setuptools.command.install import install
 
@@ -12,7 +11,7 @@ VERSION = "0.1.5"
 
 def readme():
     """ print long description """
-    return m2r.parse_from_file('README.md')
+    return parse_from_file('README.md')
     #return pypandoc.convert('README.md', 'rst')
     #with open('README.md') as f:
     #    return f.read()
