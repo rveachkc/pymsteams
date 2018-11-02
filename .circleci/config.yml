@@ -75,6 +75,7 @@ jobs:
       - run: 
           name: make a source distribution
           command: |
+            . venv/bin/activate
             python setup.py sdist
 
       - run:
