@@ -3,19 +3,17 @@
 import os
 import sys
 
-from m2r import parse_from_file
 from setuptools import setup
 from setuptools.command.install import install
 
-VERSION = "0.1.6"
+VERSION = "0.1.7"
 
 def readme():
     """ print long description """
-    return parse_from_file('README.md')
-    #return pypandoc.convert('README.md', 'rst')
-    #with open('README.md') as f:
-    #    return f.read()
-
+    with open('README.md') as f:
+        long_descrip = f.read()
+    return long_descrip
+    
 class VerifyVersionCommand(install):
     """Custom command to verify that the git tag matches our version"""
     description = 'verify that the git tag matches our version'
@@ -35,6 +33,7 @@ setup(
     version=VERSION,
     description="Format messages and post to Microsoft Teams.",
     long_description=readme(),
+    long_description_content_type="text/markdown",
     url="https://github.com/rveachkc/pymsteams",
     author="Ryan Veach",
     author_email="rveach@gmail.com",
