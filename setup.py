@@ -6,7 +6,7 @@ import sys
 from setuptools import setup
 from setuptools.command.install import install
 
-VERSION = "0.1.7"
+VERSION = "0.1.8"
 
 def readme():
     """ print long description """
@@ -56,7 +56,7 @@ setup(
     keywords=['Microsoft', 'Teams'],
     packages=['pymsteams'],
     install_requires=[
-        'requests==2.20.0',
+        'requests>=2.20.0',
     ],
     python_requires='>=3',
     cmdclass={
