@@ -15,7 +15,7 @@ jobs:
       # Download and cache dependencies
       - restore_cache:
           keys:
-          - v1-dependencies-{{ checksum "requirements.txt" }}
+          - v1-dependencies-{{ checksum "dev-requirements.txt" }}
           # fallback to using the latest cache if no exact match is found
           - v1-dependencies-
 
@@ -24,12 +24,12 @@ jobs:
           command: |
             python3 -m venv venv
             . venv/bin/activate
-            pip install -r requirements.txt
+            pip install -r dev-requirements.txt
 
       - save_cache:
           paths:
             - ./venv
-          key: v1-dependencies-{{ checksum "requirements.txt" }}
+          key: v1-dependencies-{{ checksum "dev-requirements.txt" }}
         
       # run tests!
       # this example uses Django's built-in test-runner
@@ -45,8 +45,24 @@ jobs:
       #- store_artifacts:
       #    path: test-reports
       #    destination: test-reports
-  
-  
+  test:
+    docker:
+      - image: circleci/python:3-stretch
+    working_directory: ~/repo
+
+    steps:
+      - checkout
+
+      - restore_cache:
+          key: v1-dependencies-{{ checksum "dev-requirements.txt" }}
+      - run:
+          name: verify git tag vs version
+          command: |
+            python3 -m venv venv
+            . venv/bin/activate
+            python setup.py verify
+            pytest
+
   deploy:
     docker:
       - image: circleci/python:3-stretch
@@ -56,7 +72,7 @@ jobs:
       - checkout
 
       - restore_cache:
-          key: v1-dependencies-{{ checksum "requirements.txt" }}
+          key: v1-dependencies-{{ checksum "dev-requirements.txt" }}
 
       - run:
           name: verify git tag vs version
