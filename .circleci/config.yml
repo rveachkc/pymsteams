@@ -59,7 +59,7 @@ jobs:
             . venv/bin/activate
             pip install -r dev-requirements.txt
             mkdir test-reports
-            pytest
+            pytest -v >> test-reports/pytest.out
             safety check >> test-reports/safety.out
             bandit -r pymsteams >> test-reports/bandit.out
 
