@@ -1,5 +1,7 @@
 # pymsteams
 
+[![CircleCI](https://circleci.com/gh/rveachkc/pymsteams/tree/master.svg?style=shield)](https://circleci.com/gh/rveachkc/pymsteams/tree/master)
+
 Python Wrapper Library to send requests to Microsoft Teams Webhooks.
 Microsoft refers to these messages as Connector Cards.  A message can be sent with only the main Connector Card, or additional sections can be included into the message.
 
@@ -117,7 +119,3 @@ pytest
 ```
 
 This will send two MS Teams messages describing how they are formatted.  Manually validate that the message comes through as expected.
-
-**Master** [![CircleCI](https://circleci.com/gh/rveachkc/pymsteams/tree/master.svg?style=shield)](https://circleci.com/gh/rveachkc/pymsteams/tree/master)
-
-**Develop** [![CircleCI](https://circleci.com/gh/rveachkc/pymsteams/tree/develop.svg?style=shield)](https://circleci.com/gh/rveachkc/pymsteams/tree/develop)
