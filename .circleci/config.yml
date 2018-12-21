@@ -60,7 +60,6 @@ jobs:
           command: |
             python3 -m venv venv
             . venv/bin/activate
-            python setup.py verify
             pytest
 
   deploy:
