@@ -119,7 +119,7 @@ class connectorcard:
 
     def send(self):
         headers = {"Content-Type":"application/json"}
-        r = requests.post(self.hookurl, json=self.payload, headers=headers, proxies=self.proxies)
+        r = requests.post(self.hookurl, json=self.payload, headers=headers, proxies=self.proxies, timeout=60)
 
         if r.status_code == requests.codes.ok:
             return True
