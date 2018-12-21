@@ -31,20 +31,6 @@ jobs:
             - ./venv
           key: v1-dependencies-{{ checksum "dev-requirements.txt" }}
         
-      # run tests!
-      # this example uses Django's built-in test-runner
-      # other common Python testing frameworks include pytest and nose
-      # https://pytest.org
-      # https://nose.readthedocs.io
-      #- run:
-      #    name: run tests
-      #    command: |
-      #      . venv/bin/activate
-      #      python manage.py test
-
-      #- store_artifacts:
-      #    path: test-reports
-      #    destination: test-reports
   test:
     docker:
       - image: circleci/python:3-stretch
@@ -60,7 +46,16 @@ jobs:
           command: |
             python3 -m venv venv
             . venv/bin/activate
-            pytest
+            pip install -r dev-requirements.txt
+            mkdir test-reports
+            pytest -v >> test-reports/pytest.out
+            safety check >> test-reports/safety.out
+            bandit -r pymsteams >> test-reports/bandit.out
+
+      - store_artifacts:
+          path: test-reports
+          destination: test-reports
+
 
   deploy:
     docker:
