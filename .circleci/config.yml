@@ -50,17 +50,15 @@ jobs:
             mkdir -p /tmp/test-reports/pytest
             mkdir -p /tmp/test-reports/safety
             mkdir -p /tmp/test-reports/bandit
-            which pytest
-            cwd
       - run:
           name: pytest
-          command: pytest -v >> /tmp/test-reports/pytest/results.out
+          command: venv/bin/pytest -v >> /tmp/test-reports/pytest/results.out
       - run:
           name: safety check
-          command: safety check >> /tmp/test-reports/safety/results.out
+          command: venv/bin/safety check >> /tmp/test-reports/safety/results.out
       - run:
           name: bandit analysis
-          command: bandit -r pymsteams >> /tmp/test-reports/bandit/results.out
+          command: venv/bin/bandit -r pymsteams >> /tmp/test-reports/bandit/results.out
             
             
 
