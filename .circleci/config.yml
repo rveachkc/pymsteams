@@ -50,8 +50,6 @@ jobs:
             python -m pip install --upgrade pip
             pip install -r dev-requirements.txt
             mkdir -p /tmp/test-reports/pytest
-            mkdir -p /tmp/test-reports/safety
-            mkdir -p /tmp/test-reports/bandit
       - run:
           name: pytest
           command: venv/bin/pytest -v --junitxml=/tmp/test-reports/pytest/results.xml >> /tmp/test-reports/pytest.out
@@ -59,12 +57,9 @@ jobs:
           name: safety check
           command: |
             grep requests setup.py | sed 's/ //g' | awk '{gsub("\x27", ""); print}' |  sed 's/,//g' | awk '{gsub("\x3E", "\x3D"); print}' | venv/bin/safety check --full-report --stdin >> /tmp/test-reports/safety.out
-            grep requests setup.py | sed 's/ //g' | awk '{gsub("\x27", ""); print}' |  sed 's/,//g' | awk '{gsub("\x3E", "\x3D"); print}' | venv/bin/safety check --json --stdin >> /tmp/test-reports/safety/results.json
       - run:
           name: bandit analysis
-          command: |
-            venv/bin/bandit -r pymsteams >> /tmp/test-reports/bandit.out
-            venv/bin/bandit -f xml -r pymsteams >> /tmp/test-reports/bandit/results.xml
+          command: venv/bin/bandit -r pymsteams >> /tmp/test-reports/bandit.out
             
             
 
