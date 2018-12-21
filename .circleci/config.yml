@@ -60,6 +60,7 @@ jobs:
             mkdir test-reports
             pytest
             safety check >> test-reports/safety.out
+            bandit -r pymsteams >> test-reports/bandit.out
 
       - store_artifacts:
           path: test-reports
