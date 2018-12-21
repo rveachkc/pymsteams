@@ -42,9 +42,6 @@ jobs:
       #      . venv/bin/activate
       #      python manage.py test
 
-      #- store_artifacts:
-      #    path: test-reports
-      #    destination: test-reports
   test:
     docker:
       - image: circleci/python:3-stretch
@@ -60,7 +57,14 @@ jobs:
           command: |
             python3 -m venv venv
             . venv/bin/activate
+            mkdir test-reports
             pytest
+            safety check >> test-reports/safety.out
+
+      - store_artifacts:
+          path: test-reports
+          destination: test-reports
+
 
   deploy:
     docker:
