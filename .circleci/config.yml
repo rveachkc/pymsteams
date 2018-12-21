@@ -47,17 +47,17 @@ jobs:
             python3 -m venv venv
             . venv/bin/activate
             pip install -r dev-requirements.txt
-            mkdir test-reports
-            pytest -v >> test-reports/pytest.out
-            safety check >> test-reports/safety.out
-            bandit -r pymsteams >> test-reports/bandit.out
+            mkdir /tmp/test-reports
+            pytest -v >> /tmp/test-reports/pytest/results.out
+            safety check >> /tmp/test-reports/safety/results.out
+            bandit -r pymsteams >> /tmp/test-reports/bandit/results.out
 
       - store_artifacts:
-          path: test-reports
+          path: /tmp/test-reports
           destination: test-reports
 
       - store_test_results:
-          path: test-reports
+          path: /tmp/test-reports
 
 
   deploy:
