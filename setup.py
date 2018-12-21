@@ -6,7 +6,7 @@ import sys
 from setuptools import setup
 from setuptools.command.install import install
 
-VERSION = "0.1.8"
+VERSION = "0.1.9"
 
 def readme():
     """ print long description """
@@ -47,9 +47,10 @@ setup(
         "Operating System :: OS Independent",
         "Topic :: Software Development :: Libraries :: Python Modules",
         "Topic :: Internet",
+        "Programming Language :: Python :: 2.7",
         "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 3.6",
-        "Programming Language :: Python :: 3 :: Only",
+        "Programming Language :: Python :: 3.7",
         "Topic :: Office/Business",
         "Topic :: Office/Business :: Groupware",
     ],
@@ -58,7 +59,7 @@ setup(
     install_requires=[
         'requests>=2.20.0',
     ],
-    python_requires='>=3',
+    python_requires='>=2.7',
     cmdclass={
         'verify': VerifyVersionCommand,
     }
