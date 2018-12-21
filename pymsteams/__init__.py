@@ -119,7 +119,13 @@ class connectorcard:
 
     def send(self):
         headers = {"Content-Type":"application/json"}
-        r = requests.post(self.hookurl, json=self.payload, headers=headers, proxies=self.proxies)
+        r = requests.post(
+            self.hookurl,
+            json=self.payload,
+            headers=headers,
+            proxies=self.proxies,
+            timeout=self.http_timeout,
+        )
 
         if r.status_code == requests.codes.ok:
             return True
@@ -127,10 +133,11 @@ class connectorcard:
             print(r.text)
             return False
 
-    def __init__(self, hookurl, http_proxy=None, https_proxy=None):
+    def __init__(self, hookurl, http_proxy=None, https_proxy=None, http_timeout=60):
         self.payload = {}
         self.hookurl = hookurl
         self.proxies = {}
+        self.http_timeout = http_timeout
 
         if http_proxy:
             self.proxies['http'] = http_proxy
