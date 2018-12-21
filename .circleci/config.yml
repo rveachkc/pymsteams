@@ -24,6 +24,7 @@ jobs:
           command: |
             python3 -m venv venv
             . venv/bin/activate
+            python -m pip install --upgrade pip
             pip install -r dev-requirements.txt
 
       - save_cache:
@@ -42,19 +43,32 @@ jobs:
       - restore_cache:
           key: v1-dependencies-{{ checksum "dev-requirements.txt" }}
       - run:
-          name: verify git tag vs version
+          name: set up environment
           command: |
             python3 -m venv venv
             . venv/bin/activate
+            python -m pip install --upgrade pip
             pip install -r dev-requirements.txt
-            mkdir test-reports
-            pytest -v >> test-reports/pytest.out
-            safety check >> test-reports/safety.out
-            bandit -r pymsteams >> test-reports/bandit.out
+            mkdir -p /tmp/test-reports/pytest
+      - run:
+          name: pytest
+          command: venv/bin/pytest -v --junitxml=/tmp/test-reports/pytest/results.xml >> /tmp/test-reports/pytest.out
+      - run:
+          name: safety check
+          command: |
+            grep requests setup.py | sed 's/ //g' | awk '{gsub("\x27", ""); print}' |  sed 's/,//g' | awk '{gsub("\x3E", "\x3D"); print}' | venv/bin/safety check --full-report --stdin >> /tmp/test-reports/safety.out
+      - run:
+          name: bandit analysis
+          command: venv/bin/bandit -r pymsteams >> /tmp/test-reports/bandit.out
+            
+            
 
       - store_artifacts:
-          path: test-reports
+          path: /tmp/test-reports
           destination: test-reports
+
+      - store_test_results:
+          path: /tmp/test-reports
 
 
   deploy:
@@ -73,7 +87,9 @@ jobs:
           command: |
             python3 -m venv venv
             . venv/bin/activate
+            python -m pip install --upgrade pip
             python setup.py verify
+
 
       - run:
           name: init .pypirc
