@@ -50,6 +50,8 @@ jobs:
             mkdir -p /tmp/test-reports/pytest
             mkdir -p /tmp/test-reports/safety
             mkdir -p /tmp/test-reports/bandit
+            which pytest
+            cwd
       - run:
           name: pytest
           command: pytest -v >> /tmp/test-reports/pytest/results.out
@@ -88,8 +90,7 @@ jobs:
             . venv/bin/activate
             python -m pip install --upgrade pip
             python setup.py verify
-            which pytest
-            cwd
+
 
       - run:
           name: init .pypirc
