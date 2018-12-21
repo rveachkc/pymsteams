@@ -47,7 +47,9 @@ jobs:
             python3 -m venv venv
             . venv/bin/activate
             pip install -r dev-requirements.txt
-            mkdir /tmp/test-reports
+            mkdir -p /tmp/test-reports/pytest
+            mkdir -p /tmp/test-reports/safety
+            mkdir -p /tmp/test-reports/bandit
             pytest -v >> /tmp/test-reports/pytest/results.out
             safety check >> /tmp/test-reports/safety/results.out
             bandit -r pymsteams >> /tmp/test-reports/bandit/results.out
