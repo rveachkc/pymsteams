@@ -113,17 +113,17 @@ myTeamsMessage = pymsteams.connectorcard("<Microsoft Webhook URL>")
 
 myTeamsPotentialAction1 = pymsteams.potentialaction(_name = "Add a comment")
 myTeamsPotentialAction1.addInput("TextInput","comment","Add a comment here",False)
-myTeamsPotentialAction1.addAction("HttpPost","Add Comment","http://localhost:8080")
+myTeamsPotentialAction1.addAction("HttpPost","Add Comment","https://...")
 
 myTeamsPotentialAction2 = pymsteams.potentialaction(_name = "Set due date")
 myTeamsPotentialAction2.addInput("DateInput","dueDate","Enter due date")
-myTeamsPotentialAction2.addAction("HttpPost","save","https://088449ee-f8c4-43d9-98ec-8c19873c7cb4.mock.pstmn.io")
+myTeamsPotentialAction2.addAction("HttpPost","save","https://...")
 
 myTeamsPotentialAction3 = pymsteams.potentialaction(_name = "Change Status")
 myTeamsPotentialAction3.choices.addChoices("In progress","0")
 myTeamsPotentialAction3.choices.addChoices("Active","1")
 myTeamsPotentialAction3.addInput("MultichoiceInput","list","Select a status",False)
-myTeamsPotentialAction3.addAction("HttpPost","Save","http://...")
+myTeamsPotentialAction3.addAction("HttpPost","Save","https://...")
 
 myTeamsMessage.addPotentialAction(myTeamsPotentialAction1)
 myTeamsMessage.addPotentialAction(myTeamsPotentialAction2)
