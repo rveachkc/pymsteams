@@ -63,3 +63,33 @@ def test_send_sectioned_message():
 
     # send
     teams_message.send()
+
+
+def test_send_potential_action():
+    """
+        This sends a message with a potential action
+    """
+
+    myTeamsMessage = pymsteams.connectorcard(os.getenv("MS_TEAMS_WEBHOOK"))
+    myTeamsMessage.text("This message should have three potential actions.")
+    myTeamsMessage.title("Action Message Title")
+
+    myTeamsPotentialAction1 = pymsteams.potentialaction(_name = "Add a comment")
+    myTeamsPotentialAction1.addInput("TextInput","comment","Add a comment",False)
+    myTeamsPotentialAction1.addAction("HttpPost","Add Comment","https://jsonplaceholder.typicode.com/posts")
+
+    myTeamsPotentialAction2 = pymsteams.potentialaction(_name = "Get Users")
+    myTeamsPotentialAction2.addInput("DateInput","dueDate","Enter due date")
+    myTeamsPotentialAction2.addAction("HttpPost","save","https://jsonplaceholder.typicode.com/posts")
+
+    myTeamsPotentialAction3 = pymsteams.potentialaction(_name = "Change Status")
+    myTeamsPotentialAction3.choices.addChoices("In progress","0")
+    myTeamsPotentialAction3.choices.addChoices("Active","1")
+    myTeamsPotentialAction3.addInput("MultichoiceInput","list","Select a status",False)
+    myTeamsPotentialAction3.addAction("HttpPost","Save","https://jsonplaceholder.typicode.com/posts")
+
+    myTeamsMessage.addPotentialAction(myTeamsPotentialAction1)
+    myTeamsMessage.addPotentialAction(myTeamsPotentialAction2)
+    myTeamsMessage.addPotentialAction(myTeamsPotentialAction3)
+    myTeamsMessage.summary("Message Summary")
+    myTeamsMessage.send()

@@ -104,6 +104,35 @@ myTeamsMessage.addSection(Section2)
 # Then send the card
 myTeamsMessage.send()
 ```
+### Adding potential actions to the Connector Card Message
+To create a actions on which the user can interect with in MS Teams
+To find out more information on what actions can be used, please visit https://docs.microsoft.com/en-us/microsoftteams/platform/concepts/connectors/connectors-using#setting-up-a-custom-incoming-webhook
+
+```
+myTeamsMessage = pymsteams.connectorcard("<Microsoft Webhook URL>")
+
+myTeamsPotentialAction1 = pymsteams.potentialaction(_name = "Add a comment")
+myTeamsPotentialAction1.addInput("TextInput","comment","Add a comment here",False)
+myTeamsPotentialAction1.addAction("HttpPost","Add Comment","https://...")
+
+myTeamsPotentialAction2 = pymsteams.potentialaction(_name = "Set due date")
+myTeamsPotentialAction2.addInput("DateInput","dueDate","Enter due date")
+myTeamsPotentialAction2.addAction("HttpPost","save","https://...")
+
+myTeamsPotentialAction3 = pymsteams.potentialaction(_name = "Change Status")
+myTeamsPotentialAction3.choices.addChoices("In progress","0")
+myTeamsPotentialAction3.choices.addChoices("Active","1")
+myTeamsPotentialAction3.addInput("MultichoiceInput","list","Select a status",False)
+myTeamsPotentialAction3.addAction("HttpPost","Save","https://...")
+
+myTeamsMessage.addPotentialAction(myTeamsPotentialAction1)
+myTeamsMessage.addPotentialAction(myTeamsPotentialAction2)
+myTeamsMessage.addPotentialAction(myTeamsPotentialAction3)
+
+myTeamsMessage.summary("Test Message")
+
+myTeamsMessage.send()
+```
 
 Please use Github issues to report any bugs or request enhancements.
 

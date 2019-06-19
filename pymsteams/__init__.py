@@ -47,6 +47,7 @@ class cardsection:
             imobj["title"] = ititle
         self.payload["images"].append(imobj)
 
+
     def text(self, stext):
         self.payload["text"] = stext
 
@@ -71,7 +72,65 @@ class cardsection:
 
     def __init__(self):
         self.payload = {}
+        
 
+
+class potentialaction:
+    
+    def addInput(self,_type,_id,title, isMultiline = None):
+        if "inputs" not in self.payload.keys():
+            self.payload["inputs"] = []
+        if(self.choices.dumpChoices() == []):
+            input = {
+                "@type": _type,
+                "id": _id,
+                "isMultiline" :isMultiline,
+                "title": title
+            }
+        else:
+             input = {
+                "@type": _type,
+                "id": _id,
+                "isMultiline" :str(isMultiline).lower(),
+                "choices":self.choices.dumpChoices(),
+                "title": title
+            }
+
+        self.payload["inputs"].append(input)
+
+    def addAction(self,_type,_name,_target):
+        if "actions" not in self.payload.keys():
+            self.payload["actions"] = []
+        action = {
+             "@type": _type,
+             "name": _name,
+             "target": _target
+        }
+
+        self.payload["actions"].append(action)
+
+   
+
+    def dumpPotentialAction(self):
+        return self.payload
+
+    def __init__(self, _name, _type = "ActionCard"):
+        self.payload = {}
+        self.payload["@type"] = _type
+        self.payload["name"] = _name
+        self.choices = choice()
+
+class choice:
+    def __init__(self):
+        self.choices = []
+    
+    def addChoices(self,_display,_value):
+        self.choices.append({
+                                "display": _display,
+                                "value": _value
+                            })
+    def dumpChoices(self):
+        return self.choices
 
 class connectorcard:
 
@@ -112,6 +171,13 @@ class connectorcard:
             self.payload["sections"] = []
 
         self.payload["sections"].append(newsection.dumpSection())
+
+    def addPotentialAction(self, newaction):
+        # this function expects a potential action object
+        if "potentialAction" not in self.payload.keys():
+            self.payload["potentialAction"] = []
+
+        self.payload["potentialAction"].append(newaction.dumpPotentialAction())
 
     def printme(self):
         print("hookurl: %s" % self.hookurl)
