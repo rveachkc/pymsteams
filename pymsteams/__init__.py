@@ -5,6 +5,10 @@
 
 import requests
 
+class TeamsWebhookException(Exception):
+   """custom exception for failed webhook call"""
+   pass
+
 class cardsection:
 
     def title(self, stitle):
@@ -196,8 +200,7 @@ class connectorcard:
         if r.status_code == requests.codes.ok:
             return True
         else:
-            print(r.text)
-            return False
+            raise TeamsWebhookException(r.text)
 
     def __init__(self, hookurl, http_proxy=None, https_proxy=None, http_timeout=60):
         self.payload = {}

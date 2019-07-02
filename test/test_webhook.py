@@ -1,5 +1,6 @@
 import os
 import sys
+import pytest
 
 # add scripts to the path
 sys.path.append(
@@ -9,6 +10,7 @@ sys.path.append(
         )
     )[0]
 )
+
 import pymsteams
 
 def test_env_webhook_url():
@@ -93,3 +95,13 @@ def test_send_potential_action():
     myTeamsMessage.addPotentialAction(myTeamsPotentialAction3)
     myTeamsMessage.summary("Message Summary")
     myTeamsMessage.send()
+
+def test_bad_webhook_call():
+    with pytest.raises(pymsteams.TeamsWebhookException):
+        #myTeamsMessage = pymsteams.connectorcard(os.getenv("MS_TEAMS_WEBHOOK"))
+        myTeamsMessage = pymsteams.connectorcard("https://httpstat.us/500")
+        myTeamsMessage.text("This is a simple text message.")
+        myTeamsMessage.title("Simple Message Title")
+        myTeamsMessage.send()
+        #myTeamsMessage.hookurl = "https://httpstat.us/500"
+    

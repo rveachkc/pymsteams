@@ -136,6 +136,10 @@ myTeamsMessage.send()
 
 Please use Github issues to report any bugs or request enhancements.
 
+## Exceptions
+
+If the call to the Microsoft Teams webhook service fails, a `TeamsWebhookException` will be thrown.
+
 ## Testing
 
 In order to test in your environment with pytest, set the environment variable `MS_TEAMS_WEBHOOK` to the Microsoft Teams Webhook url you would like to use.
