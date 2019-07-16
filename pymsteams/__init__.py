@@ -195,6 +195,7 @@ class connectorcard:
             headers=headers,
             proxies=self.proxies,
             timeout=self.http_timeout,
+            verify=self.verify
         )
 
         if r.status_code == requests.codes.ok:
@@ -202,11 +203,12 @@ class connectorcard:
         else:
             raise TeamsWebhookException(r.text)
 
-    def __init__(self, hookurl, http_proxy=None, https_proxy=None, http_timeout=60):
+    def __init__(self, hookurl, http_proxy=None, https_proxy=None, http_timeout=60, verify=None):
         self.payload = {}
         self.hookurl = hookurl
         self.proxies = {}
         self.http_timeout = http_timeout
+        self.verify = verify
 
         if http_proxy:
             self.proxies['http'] = http_proxy
