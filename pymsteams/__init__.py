@@ -195,7 +195,7 @@ class connectorcard:
             headers=headers,
             proxies=self.proxies,
             timeout=self.http_timeout,
-            verify=self.verify
+            verify=self.verify,
         )
 
         if r.status_code == requests.codes.ok:

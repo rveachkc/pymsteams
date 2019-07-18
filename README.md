@@ -152,3 +152,21 @@ pytest
 ```
 
 This will send two MS Teams messages describing how they are formatted.  Manually validate that the message comes through as expected.
+
+## Certificate Validation
+
+In some situations, a custom CA bundle must be used.  This can be set on class initialization, by setting the verify parameter.
+
+```python
+import pymsteams
+
+# set custom ca bundle
+msg = pymsteams.connectorcard("<Microsoft Webhook URL>", verify="/path/to/file")
+
+# disable CA validation
+msg = pymsteams.connectorcard("<Microsoft Webhook URL>", verify=False)
+```
+
+Set to either the path of a custom CA bundle or False to disable.
+
+The requests documentation can be referenced for full details: https://2.python-requests.org/en/master/user/advanced/#ssl-cert-verification
