@@ -102,7 +102,7 @@ class potentialaction:
 
         self.payload["inputs"].append(input)
 
-    def addAction(self,_type,_name,_target):
+    def addAction(self,_type,_name,_target,_headers=None,_body=None):
         if "actions" not in self.payload.keys():
             self.payload["actions"] = []
         action = {
@@ -111,9 +111,14 @@ class potentialaction:
              "target": _target
         }
 
+        if _type.lower() == 'httppost':
+            if _headers:
+                action["headers"] = _headers
+            if _body:
+                action["body"] = _body
+
         self.payload["actions"].append(action)
 
-   
 
     def dumpPotentialAction(self):
         return self.payload
