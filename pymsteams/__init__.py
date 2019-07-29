@@ -188,6 +188,25 @@ class connectorcard:
 
         self.payload["potentialAction"].append(newaction.dumpPotentialAction())
 
+    def addRawPotentialAction(self,_type,_name,_target,_headers=None,_body=None):
+        # this function expects a potential action object
+        if "potentialAction" not in self.payload.keys():
+            self.payload["potentialAction"] = []
+
+        action = {
+            "@type": _type,
+             "name": _name,
+             "target": _target,
+        }
+
+        if _type.lower() == 'httppost':
+            if _headers:
+                action["headers"] = _headers
+            if _body:
+                action["body"] = _body
+
+        self.payload["potentialAction"].append(action)
+
     def printme(self):
         print("hookurl: %s" % self.hookurl)
         print("payload: %s" % self.payload)

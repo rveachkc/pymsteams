@@ -129,6 +129,9 @@ myTeamsMessage.addPotentialAction(myTeamsPotentialAction1)
 myTeamsMessage.addPotentialAction(myTeamsPotentialAction2)
 myTeamsMessage.addPotentialAction(myTeamsPotentialAction3)
 
+hdrs = [ { 'name': 'X-Api-Key', 'value': 'key-you-need-from-teams' } ]
+myTeamsMessage.addRawPotentialAction("HttpPOST", "Click Me", "https://...", _headers=hdrs, _body='{ "a": "This is http POST json body"}')
+
 myTeamsMessage.summary("Test Message")
 
 myTeamsMessage.send()
