@@ -96,7 +96,7 @@ def test_send_potential_action():
     myTeamsMessage.summary("Message Summary")
     myTeamsMessage.send()
 
-def test_bad_webhook_call():
+def test_http_500():
     with pytest.raises(pymsteams.TeamsWebhookException):
         #myTeamsMessage = pymsteams.connectorcard(os.getenv("MS_TEAMS_WEBHOOK"))
         myTeamsMessage = pymsteams.connectorcard("https://httpstat.us/500")
@@ -105,3 +105,11 @@ def test_bad_webhook_call():
         myTeamsMessage.send()
         #myTeamsMessage.hookurl = "https://httpstat.us/500"
     
+
+def test_http_403():
+    with pytest.raises(pymsteams.TeamsWebhookException):
+        myTeamsMessage = pymsteams.connectorcard("http://httpstat.us/403")
+        myTeamsMessage.text("This is a simple text message.")
+        myTeamsMessage.title("Simple Message Title")
+        myTeamsMessage.send()
+        
