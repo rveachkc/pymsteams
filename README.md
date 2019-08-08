@@ -1,6 +1,7 @@
 # pymsteams
 
 [![CircleCI](https://circleci.com/gh/rveachkc/pymsteams/tree/master.svg?style=shield)](https://circleci.com/gh/rveachkc/pymsteams/tree/master) [![PyPI version](https://badge.fury.io/py/pymsteams.svg)](https://badge.fury.io/py/pymsteams)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Frveachkc%2Fpymsteams.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Frveachkc%2Fpymsteams?ref=badge_shield)
 
 Python Wrapper Library to send requests to Microsoft Teams Webhooks.
 Microsoft refers to these messages as Connector Cards.  A message can be sent with only the main Connector Card, or additional sections can be included into the message.
@@ -176,3 +177,7 @@ msg = pymsteams.connectorcard("<Microsoft Webhook URL>", verify=False)
 Set to either the path of a custom CA bundle or False to disable.
 
 The requests documentation can be referenced for full details: https://2.python-requests.org/en/master/user/advanced/#ssl-cert-verification
+
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Frveachkc%2Fpymsteams.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Frveachkc%2Fpymsteams?ref=badge_large)
