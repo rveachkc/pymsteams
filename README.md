@@ -53,6 +53,12 @@ This is useful in the event you need to post the same message to multiple rooms.
 myTeamsMessage.newhookurl("<My New URL>")
 ```
 
+#### Set Color Theme
+This sets the theme color of the card. The parameter is expected to be a hex color code without the hash or the string red.
+```python
+myTeamsMessage.color("<Hex Color Code>")
+```
+
 #### Preview your object
 This is a simple print command to view your connector card message object before sending.
 ```python
