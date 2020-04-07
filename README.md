@@ -101,7 +101,7 @@ Section1.text("My First Section")
 
 # Create Section 2
 Section2 = pymsteams.cardsection()
-Section2.text("My First Section")
+Section2.text("My Second Section")
 
 # Add both Sections to the main card object
 myTeamsMessage.addSection(Section1)
