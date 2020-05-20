@@ -113,7 +113,23 @@ class potentialaction:
 
         self.payload["actions"].append(action)
 
-   
+    def addOpenURI(self, _name: str, _targets: list):
+        """
+        Creates a OpenURI action
+
+        https://docs.microsoft.com/en-us/outlook/actionable-messages/message-card-reference#openuri-action
+
+        :param _name: *Name of the text to appear inside the ActionCard*
+        :type _name: str
+        :param _targets: *A list of dictionaries, ex: `{"os": "default", "uri": "https://www..."}`*
+        :type _targets: list(dict())
+        """
+        self.payload["@type"] = "OpenUri"
+        self.payload["name"] = _name
+        if not isinstance(_targets, list):
+            raise TypeError("Target must be of type list(dict())")
+        self.payload["targets"] = _targets
+
 
     def dumpPotentialAction(self):
         return self.payload
