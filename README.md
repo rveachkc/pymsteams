@@ -142,6 +142,23 @@ myTeamsMessage.send()
 
 Please use Github issues to report any bugs or request enhancements.
 
+## Troubleshooting HTTP response
+
+This module is really just a nice wrapper pointed at the Microsoft API. To help troubleshoot missing messages, the requests response content is saved to the connectorcard class attribute `last_http_status`.
+
+To get the last http status code:
+```python
+import pymsteams
+
+myTeamsMessage = pymsteams.connectorcard("<Microsoft Webhook URL>")
+myTeamsMessage.text("this is my text")
+myTeamsMessage.send()
+
+last_status_code = myTeamsMessage.last_http_status.status_code
+```
+
+More info on the Repsponse Conent is available in the requests documentation, [link](https://2.python-requests.org/en/master/user/quickstart/#response-content).
+
 ## Exceptions
 
 If the call to the Microsoft Teams webhook service fails, a `TeamsWebhookException` will be thrown.
