@@ -6,8 +6,8 @@
 import requests
 
 class TeamsWebhookException(Exception):
-   """custom exception for failed webhook call"""
-   pass
+    """custom exception for failed webhook call"""
+    pass
 
 class cardsection:
 
@@ -92,7 +92,7 @@ class potentialaction:
                 "title": title
             }
         else:
-             input = {
+            input = {
                 "@type": _type,
                 "id": _id,
                 "isMultiline" :str(isMultiline).lower(),
@@ -106,14 +106,30 @@ class potentialaction:
         if "actions" not in self.payload.keys():
             self.payload["actions"] = []
         action = {
-             "@type": _type,
-             "name": _name,
-             "target": _target
+            "@type": _type,
+            "name": _name,
+            "target": _target
         }
 
         self.payload["actions"].append(action)
 
-   
+    def addOpenURI(self, _name, _targets):
+        """
+        Creates a OpenURI action
+
+        https://docs.microsoft.com/en-us/outlook/actionable-messages/message-card-reference#openuri-action
+
+        :param _name: *Name of the text to appear inside the ActionCard*
+        :type _name: str
+        :param _targets: *A list of dictionaries, ex: `{"os": "default", "uri": "https://www..."}`*
+        :type _targets: list(dict())
+        """
+        self.payload["@type"] = "OpenUri"
+        self.payload["name"] = _name
+        if not isinstance(_targets, list):
+            raise TypeError("Target must be of type list(dict())")
+        self.payload["targets"] = _targets
+
 
     def dumpPotentialAction(self):
         return self.payload
@@ -197,8 +213,9 @@ class connectorcard:
             timeout=self.http_timeout,
             verify=self.verify,
         )
+        self.last_http_status = r
 
-        if r.status_code == requests.codes.ok:
+        if r.status_code == requests.codes.ok: # pylint: disable=no-member
             return True
         else:
             raise TeamsWebhookException(r.text)
@@ -209,6 +226,7 @@ class connectorcard:
         self.proxies = {}
         self.http_timeout = http_timeout
         self.verify = verify
+        self.last_http_response = None
 
         if http_proxy:
             self.proxies['http'] = http_proxy

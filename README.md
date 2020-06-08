@@ -1,6 +1,6 @@
 # pymsteams
 
-[![CircleCI](https://circleci.com/gh/rveachkc/pymsteams/tree/master.svg?style=shield)](https://circleci.com/gh/rveachkc/pymsteams/tree/master) [![PyPI version](https://badge.fury.io/py/pymsteams.svg)](https://badge.fury.io/py/pymsteams) [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Frveachkc%2Fpymsteams.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Frveachkc%2Fpymsteams?ref=badge_shield)
+[![CircleCI](https://circleci.com/gh/rveachkc/pymsteams/tree/master.svg?style=shield)](https://circleci.com/gh/rveachkc/pymsteams/tree/master) [![PyPI version](https://badge.fury.io/py/pymsteams.svg)](https://badge.fury.io/py/pymsteams)
 
 Python Wrapper Library to send requests to Microsoft Teams Webhooks.
 Microsoft refers to these messages as Connector Cards.  A message can be sent with only the main Connector Card, or additional sections can be included into the message.
@@ -141,6 +141,23 @@ myTeamsMessage.send()
 ```
 
 Please use Github issues to report any bugs or request enhancements.
+
+## Troubleshooting HTTP response
+
+This module is really just a nice wrapper pointed at the Microsoft API. To help troubleshoot missing messages, the requests response content is saved to the connectorcard class attribute `last_http_status`.
+
+To get the last http status code:
+```python
+import pymsteams
+
+myTeamsMessage = pymsteams.connectorcard("<Microsoft Webhook URL>")
+myTeamsMessage.text("this is my text")
+myTeamsMessage.send()
+
+last_status_code = myTeamsMessage.last_http_status.status_code
+```
+
+More info on the Repsponse Conent is available in the requests documentation, [link](https://2.python-requests.org/en/master/user/quickstart/#response-content).
 
 ## Exceptions
 
