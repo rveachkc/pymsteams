@@ -67,6 +67,7 @@ def test_send_sectioned_message():
 
     # send
     teams_message.send()
+    assert isinstance(teams_message.last_http_status.status_code, int)
 
 
 def test_send_potential_action():
@@ -75,7 +76,7 @@ def test_send_potential_action():
     """
 
     myTeamsMessage = pymsteams.connectorcard(os.getenv("MS_TEAMS_WEBHOOK"))
-    myTeamsMessage.text("This message should have three potential actions.")
+    myTeamsMessage.text("This message should have four potential actions.")
     myTeamsMessage.title("Action Message Title")
 
     myTeamsPotentialAction1 = pymsteams.potentialaction(_name = "Add a comment")
@@ -92,11 +93,21 @@ def test_send_potential_action():
     myTeamsPotentialAction3.addInput("MultichoiceInput","list","Select a status",False)
     myTeamsPotentialAction3.addAction("HttpPost","Save","https://jsonplaceholder.typicode.com/posts")
 
+    myTeamsPotentialAction4 = pymsteams.potentialaction(_name = "Download pymsteams")
+    myTeamsPotentialAction4.addOpenURI("Links", [
+        {
+            "os": "default",
+            "uri": "https://pypi.org/project/pymsteams/",
+        },
+    ])
+
     myTeamsMessage.addPotentialAction(myTeamsPotentialAction1)
     myTeamsMessage.addPotentialAction(myTeamsPotentialAction2)
     myTeamsMessage.addPotentialAction(myTeamsPotentialAction3)
     myTeamsMessage.summary("Message Summary")
+
     myTeamsMessage.send()
+    assert isinstance(myTeamsMessage.last_http_status.status_code, int)
 
 def test_http_500():
     with pytest.raises(pymsteams.TeamsWebhookException):
@@ -114,4 +125,3 @@ def test_http_403():
         myTeamsMessage.text("This is a simple text message.")
         myTeamsMessage.title("Simple Message Title")
         myTeamsMessage.send()
-        
