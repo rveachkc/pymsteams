@@ -90,14 +90,6 @@ jobs:
             python -m pip install --upgrade pip
             python setup.py verify
 
-
-      - run:
-          name: init .pypirc
-          command: |
-            echo -e "[pypi]" >> ~/.pypirc
-            echo -e "username = rveach" >> ~/.pypirc
-            echo -e "password = $PYPI_PASSWORD" >> ~/.pypirc
-
       - run: 
           name: make a source distribution
           command: |
@@ -108,7 +100,7 @@ jobs:
           name: upload to pypi
           command: |
             . venv/bin/activate
-            twine upload --config-file ~/.pypirc dist/*
+            twine upload dist/*
 
 workflows:
   version: 2
