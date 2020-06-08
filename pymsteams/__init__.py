@@ -6,8 +6,8 @@
 import requests
 
 class TeamsWebhookException(Exception):
-   """custom exception for failed webhook call"""
-   pass
+    """custom exception for failed webhook call"""
+    pass
 
 class cardsection:
 
@@ -92,7 +92,7 @@ class potentialaction:
                 "title": title
             }
         else:
-             input = {
+            input = {
                 "@type": _type,
                 "id": _id,
                 "isMultiline" :str(isMultiline).lower(),
@@ -106,14 +106,14 @@ class potentialaction:
         if "actions" not in self.payload.keys():
             self.payload["actions"] = []
         action = {
-             "@type": _type,
-             "name": _name,
-             "target": _target
+            "@type": _type,
+            "name": _name,
+            "target": _target
         }
 
         self.payload["actions"].append(action)
 
-    def addOpenURI(self, _name: str, _targets: list):
+    def addOpenURI(self, _name, _targets):
         """
         Creates a OpenURI action
 
