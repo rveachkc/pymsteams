@@ -33,6 +33,8 @@ def test_send_message():
     teams_message.addLinkButton("Go to the Repo", "https://github.com/rveachkc/pymsteams")
     teams_message.send()
 
+    assert isinstance(teams_message.last_http_status.status_code, int)
+
 
 def test_send_sectioned_message():
     """

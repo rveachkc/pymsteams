@@ -213,8 +213,9 @@ class connectorcard:
             timeout=self.http_timeout,
             verify=self.verify,
         )
+        self.last_http_status = r
 
-        if r.status_code == requests.codes.ok:
+        if r.status_code == requests.codes.ok: # pylint: disable=no-member
             return True
         else:
             raise TeamsWebhookException(r.text)
@@ -225,6 +226,7 @@ class connectorcard:
         self.proxies = {}
         self.http_timeout = http_timeout
         self.verify = verify
+        self.last_http_response = None
 
         if http_proxy:
             self.proxies['http'] = http_proxy
