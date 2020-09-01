@@ -125,3 +125,30 @@ def test_http_403():
         myTeamsMessage.text("This is a simple text message.")
         myTeamsMessage.title("Simple Message Title")
         myTeamsMessage.send()
+
+def test_message_size():
+    def getMsg(card):
+        msg = pymsteams.connectorcard(os.getenv("MS_TEAMS_WEBHOOK"))
+        msg.title('Simple Message Title')
+        msg.summary('Simple Summary')
+        msg.addSection(card)
+        return msg
+
+    # setup text that's too large
+    failure_char_count = 21000
+    text = 'a' * failure_char_count
+
+    card = pymsteams.cardsection()
+    card.text(text)
+    msg = getMsg(card)
+    with pytest.raises(pymsteams.TeamsWebhookException):
+        msg.send()
+
+    card1 = pymsteams.cardsection()
+    card2 = pymsteams.cardsection()
+    card1.text(text[:int(len(text)/2)])
+    card2.text(text[int(len(text)/2):])
+    msg = getMsg(card1)
+    assert msg.send()
+    msg = getMsg(card2)
+    assert msg.send()
