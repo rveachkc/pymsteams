@@ -152,3 +152,16 @@ def test_message_size():
     assert msg.send()
     msg = getMsg(card2)
     assert msg.send()
+
+def test_chaining():
+    card = pymsteams.cardsection()
+    card.title("Foo").activityTitle("Bar").activitySubtitle("Baz")
+    assert card.payload["title"] == "Foo"
+    assert card.payload["activityTitle"] == "Bar"
+    assert card.payload["activitySubtitle"] == "Baz"
+
+    connector_card = pymsteams.connectorcard("https://example.org")
+    connector_card.text("Big text").title("Cool title").summary("Something happened")
+    assert connector_card.payload["title"] == "Cool title"
+    assert connector_card.payload["text"] == "Big text"
+    assert connector_card.payload["summary"] == "Something happened"
