@@ -157,7 +157,7 @@ myTeamsMessage.send()
 last_status_code = myTeamsMessage.last_http_status.status_code
 ```
 
-More info on the Repsponse Conent is available in the requests documentation, [link](https://2.python-requests.org/en/master/user/quickstart/#response-content).
+More info on the Response Content is available in the requests documentation, [link](https://2.python-requests.org/en/master/user/quickstart/#response-content).
 
 ## Exceptions
 
