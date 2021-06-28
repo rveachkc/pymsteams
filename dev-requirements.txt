@@ -32,7 +32,7 @@ pyparsing==2.4.0
 pytest==5.0.1
 PyYAML==5.4
 readme-renderer==26.0
-requests==2.23.0
+requests==2.25.1
 requests-toolbelt==0.9.1
 safety==1.9.0
 SecretStorage==3.1.2
