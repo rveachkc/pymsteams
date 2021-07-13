@@ -112,7 +112,7 @@ class potentialaction:
         self.payload["inputs"].append(input)
         return self
 
-    def addAction(self,_type,_name,_target):
+    def addAction(self,_type,_name,_target,_body=None):
         if "actions" not in self.payload.keys():
             self.payload["actions"] = []
         action = {
@@ -120,6 +120,8 @@ class potentialaction:
             "name": _name,
             "target": _target
         }
+        if _body:
+            action["body"] = _body
 
         self.payload["actions"].append(action)
         return self
