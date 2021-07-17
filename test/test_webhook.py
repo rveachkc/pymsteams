@@ -1,3 +1,4 @@
+import asyncio
 import os
 import sys
 import pytest
@@ -32,6 +33,22 @@ def test_send_message():
     teams_message.title("Simple Message Title")
     teams_message.addLinkButton("Go to the Repo", "https://github.com/rveachkc/pymsteams")
     # teams_message.send()
+
+    # assert isinstance(teams_message.last_http_status.status_code, int)
+
+
+def test_async_send_message():
+    """
+        This asynchronously send a simple text message with a title and link button.
+    """
+
+    loop = asyncio.get_event_loop()
+
+    teams_message = pymsteams.async_connectorcard(os.getenv("MS_TEAMS_WEBHOOK"))
+    teams_message.text("This is a simple text message.")
+    teams_message.title("Simple Message Title")
+    teams_message.addLinkButton("Go to the Repo", "https://github.com/rveachkc/pymsteams")
+    # loop.run_until_complete(teams_message.send())
 
     # assert isinstance(teams_message.last_http_status.status_code, int)
 
@@ -109,6 +126,7 @@ def test_send_potential_action():
     # myTeamsMessage.send()
     # assert isinstance(myTeamsMessage.last_http_status.status_code, int)
 
+
 def test_http_500():
     with pytest.raises(pymsteams.TeamsWebhookException):
         #myTeamsMessage = pymsteams.connectorcard(os.getenv("MS_TEAMS_WEBHOOK"))
@@ -152,6 +170,7 @@ def test_message_size():
     # assert msg.send()
     msg = getMsg(card2)
     # assert msg.send()
+
 
 def test_chaining():
     card = pymsteams.cardsection()

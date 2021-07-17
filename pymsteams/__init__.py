@@ -2,12 +2,14 @@
 
 # https://github.com/rveachkc/pymsteams/
 # reference: https://dev.outlook.com/connectors/reference
-
+import httpx
 import requests
+
 
 class TeamsWebhookException(Exception):
     """custom exception for failed webhook call"""
     pass
+
 
 class cardsection:
 
@@ -42,8 +44,8 @@ class cardsection:
             self.payload["facts"] = []
 
         newfact = {
-            "name" : factname,
-            "value" : factvalue
+            "name": factname,
+            "value": factvalue
         }
         self.payload["facts"].append(newfact)
         return self
@@ -65,10 +67,10 @@ class cardsection:
     def linkButton(self, buttontext, buttonurl):
         self.payload["potentialAction"] = [
             {
-            "@context" : "http://schema.org",
-            "@type" : "ViewAction",
-            "name" : buttontext,
-            "target" : [ buttonurl ]
+                "@context": "http://schema.org",
+                "@type": "ViewAction",
+                "name": buttontext,
+                "target": [buttonurl]
             }
         ]
         return self
@@ -89,30 +91,30 @@ class cardsection:
 
 
 class potentialaction:
-    
-    def addInput(self,_type,_id,title, isMultiline = None):
+
+    def addInput(self, _type, _id, title, isMultiline=None):
         if "inputs" not in self.payload.keys():
             self.payload["inputs"] = []
-        if(self.choices.dumpChoices() == []):
+        if (self.choices.dumpChoices() == []):
             input = {
                 "@type": _type,
                 "id": _id,
-                "isMultiline" :isMultiline,
+                "isMultiline": isMultiline,
                 "title": title
             }
         else:
             input = {
                 "@type": _type,
                 "id": _id,
-                "isMultiline" :str(isMultiline).lower(),
-                "choices":self.choices.dumpChoices(),
+                "isMultiline": str(isMultiline).lower(),
+                "choices": self.choices.dumpChoices(),
                 "title": title
             }
 
         self.payload["inputs"].append(input)
         return self
 
-    def addAction(self,_type,_name,_target,_body=None):
+    def addAction(self, _type, _name, _target,_body=None):
         if "actions" not in self.payload.keys():
             self.payload["actions"] = []
         action = {
@@ -147,7 +149,7 @@ class potentialaction:
     def dumpPotentialAction(self):
         return self.payload
 
-    def __init__(self, _name, _type = "ActionCard"):
+    def __init__(self, _name, _type="ActionCard"):
         self.payload = {}
         self.payload["@type"] = _type
         self.payload["name"] = _name
@@ -157,14 +159,16 @@ class potentialaction:
 class choice:
     def __init__(self):
         self.choices = []
-    
-    def addChoices(self,_display,_value):
+
+    def addChoices(self, _display, _value):
         self.choices.append({
-                                "display": _display,
-                                "value": _value
-                            })
+            "display": _display,
+            "value": _value
+        })
+
     def dumpChoices(self):
         return self.choices
+
 
 class connectorcard:
 
@@ -192,10 +196,10 @@ class connectorcard:
             self.payload["potentialAction"] = []
 
         thisbutton = {
-            "@context" : "http://schema.org",
-            "@type" : "ViewAction",
-            "name" : buttontext,
-            "target" : [ buttonurl ]
+            "@context": "http://schema.org",
+            "@type": "ViewAction",
+            "name": buttontext,
+            "target": [buttonurl]
         }
 
         self.payload["potentialAction"].append(thisbutton)
@@ -226,7 +230,7 @@ class connectorcard:
         print("payload: %s" % self.payload)
 
     def send(self):
-        headers = {"Content-Type":"application/json"}
+        headers = {"Content-Type": "application/json"}
         r = requests.post(
             self.hookurl,
             json=self.payload,
@@ -237,7 +241,7 @@ class connectorcard:
         )
         self.last_http_status = r
 
-        if r.status_code == requests.codes.ok and r.text == '1': # pylint: disable=no-member
+        if r.status_code == requests.codes.ok and r.text == '1':  # pylint: disable=no-member
             return True
         else:
             raise TeamsWebhookException(r.text)
@@ -258,6 +262,23 @@ class connectorcard:
 
         if not self.proxies:
             self.proxies = None
+
+
+class async_connectorcard(connectorcard):
+
+    async def send(self):
+        headers = {"Content-Type": "application/json"}
+
+        async with httpx.AsyncClient(proxies=self.proxies, verify=self.verify) as client:
+            resp = await client.post(self.hookurl,
+                                     json=self.payload,
+                                     headers=headers,
+                                     timeout=self.http_timeout)
+            self.last_http_response = resp
+            if resp.status_code == httpx.codes.OK and resp.text == '1':
+                return True
+            else:
+                raise TeamsWebhookException(resp.text)
 
 
 def formaturl(display, url):
