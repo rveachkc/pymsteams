@@ -239,7 +239,7 @@ class connectorcard:
             timeout=self.http_timeout,
             verify=self.verify,
         )
-        self.last_http_status = r
+        self.last_http_response = r
 
         if r.status_code == requests.codes.ok and r.text == '1':  # pylint: disable=no-member
             return True

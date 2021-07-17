@@ -34,7 +34,7 @@ def test_send_message():
     teams_message.addLinkButton("Go to the Repo", "https://github.com/rveachkc/pymsteams")
     # teams_message.send()
 
-    # assert isinstance(teams_message.last_http_status.status_code, int)
+    # assert isinstance(teams_message.last_http_response.status_code, int)
 
 
 def test_async_send_message():
@@ -50,7 +50,7 @@ def test_async_send_message():
     teams_message.addLinkButton("Go to the Repo", "https://github.com/rveachkc/pymsteams")
     # loop.run_until_complete(teams_message.send())
 
-    # assert isinstance(teams_message.last_http_status.status_code, int)
+    # assert isinstance(teams_message.last_http_response.status_code, int)
 
 
 def test_send_sectioned_message():
@@ -84,7 +84,7 @@ def test_send_sectioned_message():
 
     # send
     # teams_message.send()
-    # assert isinstance(teams_message.last_http_status.status_code, int)
+    # assert isinstance(teams_message.last_http_response.status_code, int)
 
 
 def test_send_potential_action():
@@ -124,7 +124,7 @@ def test_send_potential_action():
     myTeamsMessage.summary("Message Summary")
 
     # myTeamsMessage.send()
-    # assert isinstance(myTeamsMessage.last_http_status.status_code, int)
+    # assert isinstance(myTeamsMessage.last_http_response.status_code, int)
 
 
 def test_http_500():
