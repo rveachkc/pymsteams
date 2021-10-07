@@ -6,7 +6,7 @@ import sys
 from setuptools import setup
 from setuptools.command.install import install
 
-VERSION = "0.1.15"
+VERSION = "0.1.16"
 
 def readme():
     """ print long description """
