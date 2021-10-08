@@ -119,7 +119,7 @@ myTeamsMessage = pymsteams.connectorcard("<Microsoft Webhook URL>")
 
 myTeamsPotentialAction1 = pymsteams.potentialaction(_name = "Add a comment")
 myTeamsPotentialAction1.addInput("TextInput","comment","Add a comment here",False)
-myTeamsPotentialAction1.addAction("HttpPost","Add Comment","https://...")
+myTeamsPotentialAction1.addAction("HttpPost","Add Comment","https://..."") 
 
 myTeamsPotentialAction2 = pymsteams.potentialaction(_name = "Set due date")
 myTeamsPotentialAction2.addInput("DateInput","dueDate","Enter due date")
@@ -138,6 +138,29 @@ myTeamsMessage.addPotentialAction(myTeamsPotentialAction3)
 myTeamsMessage.summary("Test Message")
 
 myTeamsMessage.send()
+```
+### Adding HTTP Post to potential actions in the Connector Card Message
+
+```
+myTeamsMessage = pymsteams.connectorcard("<Microsoft Webhook URL>")
+
+myTeamsPotentialAction1 = pymsteams.potentialaction(_name = "Add a comment")
+# You can add a TextInput to your potential action like below - Please note the 2nd argment below as the id name
+myTeamsPotentialAction1.addInput("TextInput","comment","Add a comment here",False)
+# we use the 2nd argument above as the id name to parse the values into the body post like below.
+myTeamsPotentialAction1.addAction("HttpPost","Add Comment","https://...", "{{comment.value}}") 
+myTeamsMessage.addPotentialAction(myTeamsPotentialAction1)
+
+
+myTeamsMessage.summary("Test Message")
+
+myTeamsMessage.send()
+
+# Notes:
+# If you post anything via teams, you will get some Javascript encoding happening via the post - For example:
+# Posting this:  {"name":"john", "comment" : "nice"}
+# Output will be:  b'{\\u0022name\\u0022:\\u0022john\\u0022, \\u0022comment\\u0022 : \\u0022nice\\u0022}'
+# i solved this issue by decoding unicode escape for a custom rest backend.
 ```
 
 Please use Github issues to report any bugs or request enhancements.
