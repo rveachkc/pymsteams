@@ -2,7 +2,6 @@
 
 # https://github.com/rveachkc/pymsteams/
 # reference: https://dev.outlook.com/connectors/reference
-import httpx
 import requests
 
 
@@ -267,6 +266,13 @@ class connectorcard:
 class async_connectorcard(connectorcard):
 
     async def send(self):
+        try:
+            import httpx
+        except ImportError as e:
+            print("For use the asynchronous connector card, "
+                  "install the asynchronous version of the library via pip: pip install pymsteams[async]")
+            raise e
+
         headers = {"Content-Type": "application/json"}
 
         async with httpx.AsyncClient(proxies=self.proxies, verify=self.verify) as client:
