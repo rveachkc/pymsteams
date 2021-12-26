@@ -194,7 +194,9 @@ Then, from the root of the repo, install the requirements and run pytest.
 
 ```bash
 pip install -r dev-requirements.txt
-pytest
+MS_TEAMS_WEBHOOK=MicrosoftWebhookURL
+export MS_TEAMS_WEBHOOK
+pytest --cov=./pymsteams --cov-report=term-missing --cov-branch
 ```
 
 This will send two MS Teams messages describing how they are formatted.  Manually validate that the message comes through as expected.
