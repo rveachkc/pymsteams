@@ -30,6 +30,7 @@ Pygments>=2.7.4
 pylint>=2.5.3
 pyparsing>=2.4.0
 pytest>=5.0.1
+pytest-cov==3.0.0
 PyYAML>=5.4
 readme-renderer>=26.0
 requests>=2.25.1
