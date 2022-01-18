@@ -76,7 +76,7 @@ jobs:
           destination: coverage
 
       - store_test_results:
-          path: /tmp/test-reports
+          path: /tmp/pytest
 
 
   deploy:
