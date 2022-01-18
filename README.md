@@ -18,10 +18,18 @@ Install with pip:
 pip install pymsteams
 ```
 
+Install with async capabilities (python 3.6+):
+
+```bash
+pip install pymsteams[async]
+```
+
 ## Usage
 
 ### Creating ConnectorCard Messages
+
 This is the simplest implementation of pymsteams.  It will send a message to the teams webhook url with plain text in the message.
+
 ```python
 import pymsteams
 
@@ -34,6 +42,27 @@ myTeamsMessage.text("this is my text")
 # send the message.
 myTeamsMessage.send()
 ```
+
+### Creating CreatorCard Messages to send via async loop
+
+```python
+import asyncio
+import pymsteams
+
+loop = asyncio.get_event_loop()
+
+# the async_connectorcard object is used instead of the normal one.
+myTeamsMessage = pymsteams.async_connectorcard("<Microsoft Webhook URL>")
+
+# all formatting for the message should be the same
+myTeamsMessage.text("This is my message")
+
+# to send the message, pass to the event loop
+loop.run_until_complete(myTeamsMessage.send())
+```
+
+Please visit the python asyncio documentation for more info on using asyncio and the event loop: https://docs.python.org/3/library/asyncio-eventloop.html
+
 
 ### Optional Formatting Methods for Cards
 

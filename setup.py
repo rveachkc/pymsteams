@@ -6,7 +6,7 @@ import sys
 from setuptools import setup
 from setuptools.command.install import install
 
-VERSION = "0.1.16"
+VERSION = "0.2.0"
 
 
 def readme():
@@ -51,8 +51,6 @@ setup(
         "Topic :: Internet",
         "Programming Language :: Python :: 2.7",
         "Programming Language :: Python :: 3",
-        "Programming Language :: Python :: 3.6",
-        "Programming Language :: Python :: 3.7",
         "Topic :: Office/Business",
         "Topic :: Office/Business :: Groupware",
     ],
