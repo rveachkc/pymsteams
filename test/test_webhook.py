@@ -132,7 +132,7 @@ def test_http_500():
         myTeamsMessage = pymsteams.connectorcard("https://httpstat.us/500")
         myTeamsMessage.text("This is a simple text message.")
         myTeamsMessage.title("Simple Message Title")
-        # myTeamsMessage.send()
+        myTeamsMessage.send()
         #myTeamsMessage.hookurl = "https://httpstat.us/500"
     
 
@@ -141,7 +141,7 @@ def test_http_403():
         myTeamsMessage = pymsteams.connectorcard("http://httpstat.us/403")
         myTeamsMessage.text("This is a simple text message.")
         myTeamsMessage.title("Simple Message Title")
-        # myTeamsMessage.send()
+        myTeamsMessage.send()
 
 def test_message_size():
     def getMsg(card):
