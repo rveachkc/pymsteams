@@ -50,4 +50,5 @@ jobs:
       - name: Publish Pytest Results
         uses: mikepenz/action-junit-report@v2
         if: always()
-        with: '**/pytest_results.xml'
+        with:
+          report_paths: '**/pytest_results.xml'
