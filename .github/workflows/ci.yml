@@ -4,7 +4,7 @@ on: [push]
 
 jobs:
 
-  test:
+  build:
 
     runs-on: ubuntu-latest
     strategy:
@@ -19,22 +19,22 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: ${{ matrix.python-version }}
+
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -r dev-requirements.txt
-  
-    - name: Run PyTest
-      run: |
-        pytest -v --cov=pymsteams --cov-report html --junitxml=pytest_results.xml
 
+      - name: Run PyTest
+        run: |
+          pytest -v --cov=pymsteams --cov-report html --junitxml=pytest_results.xml
 
-    - uses: actions/upload-artifact@v2
-      with:
-        name: coverage
-        path: htmlcov/
+      - uses: actions/upload-artifact@v2
+        with:
+          name: coverage
+          path: htmlcov/
 
-    - uses: actions/upload-artifact@v2
-      with:
-        name: pytest
-        path: pytest_results.xml
+      - uses: actions/upload-artifact@v2
+        with:
+          name: pytest
+          path: pytest_results.xml
