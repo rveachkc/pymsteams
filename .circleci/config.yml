@@ -52,7 +52,7 @@ jobs:
             mkdir -p /tmp/test-reports/pytest
       - run:
           name: pytest
-          command: venv/bin/pytest -v --junitxml=/tmp/test-reports/pytest/results.xml >> /tmp/test-reports/pytest.out
+          command: venv/bin/pytest -v --cov=pymsteams --cov-report xml:/tmp/test-reports/coverage.xml --junitxml=/tmp/test-reports/pytest/results.xml >> /tmp/test-reports/pytest.out
       - run:
           name: safety check
           command: |
