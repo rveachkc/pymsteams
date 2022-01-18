@@ -49,10 +49,12 @@ jobs:
             . venv/bin/activate
             python -m pip install --upgrade pip
             pip install -r dev-requirements.txt
-            mkdir -p /tmp/test-reports/pytest
+            mkdir -p /tmp/test-reports
+            mkdir -p /tmp/pytest
+            mkdir -p /tmp/htmlcov
       - run:
           name: pytest
-          command: venv/bin/pytest -v --junitxml=/tmp/test-reports/pytest/results.xml >> /tmp/test-reports/pytest.out
+          command: venv/bin/pytest -v --cov=pymsteams --cov-report html:/tmp/htmlcov --junitxml=/tmp/pytest/results.xml >> /tmp/test-reports/pytest.out
       - run:
           name: safety check
           command: |
@@ -66,9 +68,15 @@ jobs:
       - store_artifacts:
           path: /tmp/test-reports
           destination: test-reports
+      - store_artifacts:
+          path: /tmp/pytest
+          destination: pytest
+      - store_artifacts:
+          path: /tmp/htmlcov
+          destination: coverage
 
       - store_test_results:
-          path: /tmp/test-reports
+          path: /tmp/pytest
 
 
   deploy:
