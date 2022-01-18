@@ -14,14 +14,15 @@ sys.path.append(
 
 import pymsteams
 
-def test_env_webhook_url():
-    """
-        Test that we have the webhook set as an environment variable.
-        This is testing our test environment, not the code.
-    """
-    webhook_url = os.getenv("MS_TEAMS_WEBHOOK", None)
-    assert webhook_url
-    assert webhook_url.find("https") == 0
+# temporarily disabling this one, as we're not passing the url via env variable
+# def test_env_webhook_url():
+#     """
+#         Test that we have the webhook set as an environment variable.
+#         This is testing our test environment, not the code.
+#     """
+#     webhook_url = os.getenv("MS_TEAMS_WEBHOOK", None)
+#     assert webhook_url
+#     assert webhook_url.find("https") == 0
 
 def test_send_message():
     """
