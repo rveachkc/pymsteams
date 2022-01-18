@@ -14,7 +14,6 @@ jobs:
     strategy:
       matrix:
         python-version:
-          - "3.6"
           - "3.7"
           - "3.8"
           - "3.9"
@@ -47,3 +46,8 @@ jobs:
         with:
           name: pytest
           path: pytest_results.xml
+
+      - name: Publish Pytest Results
+        uses: mikepenz/action-junit-report@v2
+        if: always()
+        with: '**/pytest_results.xml'
