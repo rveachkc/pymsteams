@@ -7,6 +7,10 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
+
+    env:
+      MS_TEAMS_WEBHOOK: https://httpstat.us/200
+
     strategy:
       matrix:
         python-version:
