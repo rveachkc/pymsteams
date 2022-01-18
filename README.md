@@ -114,7 +114,7 @@ myTeamsMessage.send()
 To create a actions on which the user can interect with in MS Teams
 To find out more information on what actions can be used, please visit https://docs.microsoft.com/en-us/microsoftteams/platform/concepts/connectors/connectors-using#setting-up-a-custom-incoming-webhook
 
-```
+```python
 myTeamsMessage = pymsteams.connectorcard("<Microsoft Webhook URL>")
 
 myTeamsPotentialAction1 = pymsteams.potentialaction(_name = "Add a comment")
@@ -141,7 +141,7 @@ myTeamsMessage.send()
 ```
 ### Adding HTTP Post to potential actions in the Connector Card Message
 
-```
+```python
 myTeamsMessage = pymsteams.connectorcard("<Microsoft Webhook URL>")
 
 myTeamsPotentialAction1 = pymsteams.potentialaction(_name = "Add a comment")
