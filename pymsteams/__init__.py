@@ -2,7 +2,7 @@
 
 # https://github.com/rveachkc/pymsteams/
 # reference: https://dev.outlook.com/connectors/reference
-
+from .adaptivecard import AdaptiveCard
 import requests
 
 class TeamsWebhookException(Exception):
