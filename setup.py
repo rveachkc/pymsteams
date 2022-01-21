@@ -6,7 +6,7 @@ import sys
 from setuptools import setup
 from setuptools.command.install import install
 
-VERSION = "0.2.0"
+VERSION = "0.2.1"
 
 
 def readme():
@@ -49,7 +49,6 @@ setup(
         "Operating System :: OS Independent",
         "Topic :: Software Development :: Libraries :: Python Modules",
         "Topic :: Internet",
-        "Programming Language :: Python :: 2.7",
         "Programming Language :: Python :: 3",
         "Topic :: Office/Business",
         "Topic :: Office/Business :: Groupware",
@@ -62,7 +61,7 @@ setup(
     extras_require={
         "async": ["httpx>=0.18.2"]
     },
-    python_requires='>=2.7',
+    python_requires='>=3.6',
     cmdclass={
         'verify': VerifyVersionCommand,
     }
