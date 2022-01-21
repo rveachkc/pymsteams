@@ -2,7 +2,7 @@ import requests
 import pprint
 
 
-class Base:
+class Base(object):
     def __init__(self, hookurl, http_proxy, https_proxy, http_timeout, verify):
         self.payload = {}
         self.hookurl = hookurl
@@ -21,7 +21,7 @@ class Base:
             self.proxies = None
 
     def printme(self):
-        print(f"hookurl: {self.hookurl}")
+        print("hookurl: %s" % self.hookurl)
         print('payload')
         pprint.pprint(self.payload)
 

@@ -4,7 +4,7 @@ import re
 
 class AdaptiveCard(Base):
     def __init__(self, hookurl, http_proxy=None, https_proxy=None, http_timeout=60, verify=None):
-        super().__init__(hookurl, http_proxy, https_proxy, http_timeout, verify)
+        super(AdaptiveCard, self).__init__(hookurl, http_proxy, https_proxy, http_timeout, verify)
         payload = self.payload
         payload['type'] = 'message'
         payload['attachments'] = [
@@ -142,7 +142,7 @@ class AdaptiveCard(Base):
             additional_entities.append(
                 {
                     "type": "mention",
-                    "text": f"<at>{mention_user_info['mention_user_key']}</at>",
+                    "text": "<at>{}</at>".format(mention_user_info['mention_user_key']),
                     "mentioned": {
                         "id": mention_user_info['mention_user_id'],
                         "name": mention_user_info['mention_user_name']
