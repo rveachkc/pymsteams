@@ -24,6 +24,10 @@ Install with async capabilities (python 3.6+):
 pip install pymsteams[async]
 ```
 
+#### Python 2 Installation
+
+At time of writing, the latest release supported by Python 2 is [Version 0.1.16](https://github.com/rveachkc/pymsteams/releases/tag/0.1.16)
+
 ## Usage
 
 ### Creating ConnectorCard Messages
