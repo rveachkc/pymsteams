@@ -1,4 +1,5 @@
 import requests
+import pprint
 
 
 class Base:
@@ -20,8 +21,9 @@ class Base:
             self.proxies = None
 
     def printme(self):
-        print("hookurl: %s" % self.hookurl)
-        print("payload: %s" % self.payload)
+        print(f"hookurl: {self.hookurl}")
+        print('payload')
+        pprint.pprint(self.payload)
 
     def send(self):
         headers = {"Content-Type": "application/json"}
