@@ -218,13 +218,20 @@ If the call to the Microsoft Teams webhook service fails, a `TeamsWebhookExcepti
 ## Testing
 
 In order to test in your environment with pytest, set the environment variable `MS_TEAMS_WEBHOOK` to the Microsoft Teams Webhook url you would like to use.
+Besides, in order to test for mention on adaptive card section, set the 
+`MS_TEAMS_MENTION_USER_ID` and `MS_TEAMS_MENTION_USER_NAME` environment variables 
+you would like to use.
 
 Then, from the root of the repo, install the requirements and run pytest.
 
 ```bash
 pip install -r dev-requirements.txt
 MS_TEAMS_WEBHOOK=MicrosoftWebhookURL
+MS_TEAMS_MENTION_USER_ID=Microsoft UPN or AAD
+MS_TEAMS_MENTION_USER_NAME=User name to display
 export MS_TEAMS_WEBHOOK
+export MS_TEAMS_MENTION_USER_ID
+export MS_TEAMS_MENTION_USER_NAME
 pytest --cov=./pymsteams --cov-report=term-missing --cov-branch
 ```
 
@@ -247,3 +254,61 @@ msg = pymsteams.connectorcard("<Microsoft Webhook URL>", verify=False)
 Set to either the path of a custom CA bundle or False to disable.
 
 The requests documentation can be referenced for full details: https://2.python-requests.org/en/master/user/advanced/#ssl-cert-verification
+
+### Creating AdaptiveCard Messages
+
+This will send a message to the teams webhook url with plain text by Adaptive Card.
+
+```python
+import pymsteams
+
+# You must create the connectorcard object with the Microsoft Webhook URL
+myTeamsMessage = pymsteams.AdaptiveCard("<Microsoft Webhook URL>")
+
+# Add text to the message.
+myTeamsMessage.text("this is my text for Adaptive Card")
+
+# send the message.
+myTeamsMessage.send()
+```
+
+### Creating AdaptiveCard Messages and mention users
+
+When you use Adaptive Card, you can mention any users. 
+This requires Microsoft UPN or AAD for the mention id. Also display name is required.
+
+e.g1) <at>AdeleV@contoso.onmicrosoft.com</at>
+When you only set Microsoft UPN/AAD, email use name is used for display name.
+    display name : AdeleV
+    mention id   : AdeleV@contoso.onmicrosoft.com
+
+```python
+import pymsteams
+
+# You must create the connectorcard object with the Microsoft Webhook URL
+myTeamsMessage = pymsteams.AdaptiveCard("<Microsoft Webhook URL>")
+
+# Add text to the message.
+myTeamsMessage.text("Hello <at>AdeleV@contoso.onmicrosoft.com</at>,this is my text for Adaptive Card")
+
+# send the message.
+myTeamsMessage.send()
+```
+
+When you use following syntax, inside of [] is used for name and inside of () is used for id.
+e.g2) <at>[Adele Vance](AdeleV@contoso.onmicrosoft.com)</at>
+    display name : Adele Vance
+    mention id   : AdeleV@contoso.onmicrosoft.com
+
+```python
+import pymsteams
+
+# You must create the connectorcard object with the Microsoft Webhook URL
+myTeamsMessage = pymsteams.AdaptiveCard("<Microsoft Webhook URL>")
+
+# Add text to the message.
+myTeamsMessage.text("Hello <at>[Adele Vance](AdeleV@contoso.onmicrosoft.com)</at>,this is my text for Adaptive Card")
+
+# send the message.
+myTeamsMessage.send()
+```

@@ -184,3 +184,15 @@ def test_chaining():
     assert connector_card.payload["title"] == "Cool title"
     assert connector_card.payload["text"] == "Big text"
     assert connector_card.payload["summary"] == "Something happened"
+
+def test_send_adaptivecard_message():
+    """
+        This sends a simple text message with a mention user on adaptive card.
+    """
+    MENTION_USER_ID = os.getenv("MS_TEAMS_MENTION_USER_ID")
+    MENTION_USER_NAME = os.getenv("MS_TEAMS_MENTION_USER_NAME")
+    teams_message = pymsteams.AdaptiveCard(os.getenv("MS_TEAMS_WEBHOOK"))
+    teams_message.text(f"Hello <at>[{MENTION_USER_NAME}]({MENTION_USER_ID})</at>,This is a simple text message.")
+    teams_message.send()
+
+    # assert isinstance(teams_message.last_http_response.status_code, int)

@@ -110,6 +110,11 @@ class AdaptiveCard(Base):
             except BaseException:
                 pass
 
+        """
+        On this section, it will create mention user key/id/name.
+        When it's [User name](User id) syntax, [User name] is used for user name and (User id) is used for user id.
+        When it's user.email@abc.com syntax, user.email is used for user name and user.email@abc.com is used for user id.
+        """
         mention_user_info_list = []
         for mention_user_key in mention_user_keys:
             mention_user_key_list = re.findall(r'\[([^\]]+)\]\(([^\)]+)\)', mention_user_key)
