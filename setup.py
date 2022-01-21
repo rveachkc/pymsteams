@@ -6,14 +6,16 @@ import sys
 from setuptools import setup
 from setuptools.command.install import install
 
-VERSION = "0.1.16"
+VERSION = "0.2.0"
+
 
 def readme():
     """ print long description """
     with open('README.md') as f:
         long_descrip = f.read()
     return long_descrip
-    
+
+
 class VerifyVersionCommand(install):
     """Custom command to verify that the git tag matches our version"""
     description = 'verify that the git tag matches our version'
@@ -49,8 +51,6 @@ setup(
         "Topic :: Internet",
         "Programming Language :: Python :: 2.7",
         "Programming Language :: Python :: 3",
-        "Programming Language :: Python :: 3.6",
-        "Programming Language :: Python :: 3.7",
         "Topic :: Office/Business",
         "Topic :: Office/Business :: Groupware",
     ],
@@ -59,6 +59,9 @@ setup(
     install_requires=[
         'requests>=2.20.0',
     ],
+    extras_require={
+        "async": ["httpx>=0.18.2"]
+    },
     python_requires='>=2.7',
     cmdclass={
         'verify': VerifyVersionCommand,
