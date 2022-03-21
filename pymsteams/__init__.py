@@ -17,6 +17,11 @@ class cardsection:
         self.payload["title"] = stitle
         return self
 
+     def startGroup(self, sstartGroup: bool):
+        # Set startGroup for given section to start a logical group of information.
+        self.payload["startGroup"] = sstartGroup
+        return self
+
     def activityTitle(self, sactivityTitle):
         # Title of the event or action. Often this will be the name of the "actor".
         self.payload["activityTitle"] = sactivityTitle
