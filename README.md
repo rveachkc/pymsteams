@@ -210,7 +210,7 @@ myTeamsMessage = pymsteams.connectorcard("<Microsoft Webhook URL>")
 myTeamsMessage.text("this is my text")
 myTeamsMessage.send()
 
-last_status_code = myTeamsMessage.last_http_status.status_code
+last_status_code = myTeamsMessage.last_http_response.status_code
 ```
 
 More info on the Response Content is available in the requests documentation, [link](https://2.python-requests.org/en/master/user/quickstart/#response-content).
