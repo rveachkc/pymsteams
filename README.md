@@ -200,7 +200,7 @@ Please use Github issues to report any bugs or request enhancements.
 
 ## Troubleshooting HTTP response
 
-This module is really just a nice wrapper pointed at the Microsoft API. To help troubleshoot missing messages, the requests response content is saved to the connectorcard class attribute `last_http_status`.
+This module is really just a nice wrapper pointed at the Microsoft API. To help troubleshoot missing messages, the requests response content is saved to the connectorcard class attribute `last_http_response`.
 
 To get the last http status code:
 ```python
@@ -210,7 +210,7 @@ myTeamsMessage = pymsteams.connectorcard("<Microsoft Webhook URL>")
 myTeamsMessage.text("this is my text")
 myTeamsMessage.send()
 
-last_status_code = myTeamsMessage.last_http_status.status_code
+last_status_code = myTeamsMessage.last_http_response.status_code
 ```
 
 More info on the Response Content is available in the requests documentation, [link](https://2.python-requests.org/en/master/user/quickstart/#response-content).
