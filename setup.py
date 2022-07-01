@@ -6,7 +6,7 @@ import sys
 from setuptools import setup
 from setuptools.command.install import install
 
-VERSION = "0.2.1"
+VERSION = "0.3.0"
 
 
 def readme():
@@ -57,6 +57,7 @@ setup(
     packages=['pymsteams'],
     install_requires=[
         'requests>=2.20.0',
+        'pyadaptivecards>=0.1.1',
     ],
     extras_require={
         "async": ["httpx>=0.18.2"]
