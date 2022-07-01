@@ -6,11 +6,16 @@ name = "pypi"
 [packages]
 requests = "*"
 httpx = "*"
+pyadaptivecards = "*"
 
 [dev-packages]
 twine = "*"
 pytest = "*"
 pylint = "*"
+requests-mock = "*"
+pytest-mock = "*"
+pytest-httpx = "*"
+pytest-asyncio = "*"
 
 [requires]
 python_version = "3.10"
