@@ -7,6 +7,7 @@ class choice:
 
     def addChoices(self, _display: str, _value: str):
         self.choices.append({"display": _display, "value": _value})
+        return self
 
     def dumpChoices(self):
         return self.choices

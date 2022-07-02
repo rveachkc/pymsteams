@@ -1,6 +1,7 @@
 import warnings
 from pymsteams.webhook import send_webhook_sync
 from pymsteams.exceptions import TeamsWebhookException
+from pymsteams.legacy.potentialaction import potentialaction
 
 
 class connectorcard:
@@ -49,7 +50,7 @@ class connectorcard:
         self.payload["sections"].append(newsection.dumpSection())
         return self
 
-    def addPotentialAction(self, newaction):
+    def addPotentialAction(self, newaction: potentialaction):
         # this function expects a potential action object
         if "potentialAction" not in self.payload.keys():
             self.payload["potentialAction"] = []
@@ -76,7 +77,9 @@ class connectorcard:
             proxies=self.proxies,
             timeout=self.http_timeout,
             verify=self.verify,
+            legacy_check=True,
         )
+        return self
 
     def __init__(
         self, hookurl, http_proxy=None, https_proxy=None, http_timeout=60, verify=None

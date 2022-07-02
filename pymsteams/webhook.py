@@ -20,6 +20,7 @@ def send_webhook_sync(
     proxies: Optional[dict] = {},
     timeout: Optional[int] = 60,
     verify: Optional[bool] = None,
+    legacy_check: Optional[bool] = False,
 ):
 
     response = requests.post(
@@ -28,6 +29,10 @@ def send_webhook_sync(
         headers=HTTP_HEADERS,
         proxies=proxies,
     )
+
+    if legacy_check:
+        if response.status_code != requests.codes.ok or response.text != "1":
+            raise TeamsWebhookException(response.text)
 
     if response.status_code != requests.codes.ok:
         raise TeamsWebhookException(response.text)
