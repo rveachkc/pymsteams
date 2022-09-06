@@ -1,20 +1,13 @@
 import asyncio
-import os
-import sys
 import warnings
-
 from unittest import TestCase
 from unittest.mock import patch
 
 import pytest
 import requests_mock
+from pymsteams.exceptions import AsyncRequirementsMissing, TeamsWebhookException
+from pymsteams.webhook import send_webhook_async, send_webhook_sync
 from pytest_httpx import HTTPXMock
-
-
-# add scripts to the path
-sys.path.append(os.path.split(os.path.dirname(os.path.abspath(__file__)))[0])
-from pymsteams.webhook import send_webhook_sync, send_webhook_async
-from pymsteams.exceptions import TeamsWebhookException, AsyncRequirementsMissing
 
 FAKE_URL = "http://fakeurl.com"
 FAKE_DATA = {"hi": "there"}

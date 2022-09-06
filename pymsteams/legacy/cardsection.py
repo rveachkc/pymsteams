@@ -1,7 +1,7 @@
 from typing import Optional
 
 
-class cardsection:
+class CardSection:
     def title(self, stitle: str):
         # title of the section
         self.payload["title"] = stitle

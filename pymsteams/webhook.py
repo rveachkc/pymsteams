@@ -1,6 +1,8 @@
-import requests
 from typing import Optional
 
+import requests
+
+from pymsteams.exceptions import AsyncRequirementsMissing, TeamsWebhookException
 
 try:
     import httpx
@@ -9,7 +11,6 @@ try:
 except ImportError:
     ASYNC_OK = False
 
-from pymsteams.exceptions import TeamsWebhookException, AsyncRequirementsMissing
 
 HTTP_HEADERS = {"Content-Type": "application/json"}
 

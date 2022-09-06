@@ -1,18 +1,7 @@
-import os
-import sys
-import pytest
 from unittest import TestCase
 
-import requests_mock
-
-
-# add scripts to the path
-sys.path.append(os.path.split(os.path.dirname(os.path.abspath(__file__)))[0])
-
 import pymsteams
-
-# from pytest_mock import mocker
-import pytest
+import requests_mock
 
 FAKE_URL = "http://127.0.0.1:3456"
 FAKE_DATA = {"hi": "there"}

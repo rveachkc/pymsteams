@@ -1,7 +1,7 @@
 from typing import Optional
 
 
-class choice:
+class Choice:
     def __init__(self):
         self.choices = []
 
@@ -13,7 +13,7 @@ class choice:
         return self.choices
 
 
-class potentialaction:
+class PotentialAction:
     def addInput(
         self, _type: str, _id: str, title: str, isMultiline: Optional[bool] = None
     ):
@@ -73,4 +73,4 @@ class potentialaction:
         self.payload = {}
         self.payload["@type"] = _type
         self.payload["name"] = _name
-        self.choices = choice()
+        self.choices = Choice()

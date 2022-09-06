@@ -1,10 +1,6 @@
-#!/usr/bin/env python
-
-# https://github.com/rveachkc/pymsteams/
-# reference: https://dev.outlook.com/connectors/reference
-
-from pymsteams.legacy.cardsection import cardsection
-from pymsteams.legacy.connectorcard import connectorcard, async_connectorcard
-from pymsteams.legacy.potentialaction import potentialaction
 from pymsteams.exceptions import TeamsWebhookException
+from pymsteams.legacy.cardsection import CardSection as cardsection
+from pymsteams.legacy.connectorcard import AsyncConnectorCard as async_connectorcard
+from pymsteams.legacy.connectorcard import ConnectorCard as connectorcard
+from pymsteams.legacy.potentialaction import PotentialAction as potentialaction
 from pymsteams.utils import formaturl
