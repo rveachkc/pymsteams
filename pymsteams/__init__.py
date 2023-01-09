@@ -8,3 +8,4 @@ from pymsteams.legacy.connectorcard import connectorcard, async_connectorcard
 from pymsteams.legacy.potentialaction import potentialaction
 from pymsteams.exceptions import TeamsWebhookException
 from pymsteams.utils import formaturl
+from pymsteams.adaptive_cards import AdaptiveCard
