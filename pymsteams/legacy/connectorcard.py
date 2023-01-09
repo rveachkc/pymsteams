@@ -1,3 +1,4 @@
+from typing import Optional
 import warnings
 from pymsteams.webhook import send_webhook_sync
 from pymsteams.exceptions import TeamsWebhookException
@@ -77,12 +78,16 @@ class connectorcard:
             proxies=self.proxies,
             timeout=self.http_timeout,
             verify=self.verify,
-            legacy_check=True,
         )
         return self
 
     def __init__(
-        self, hookurl, http_proxy=None, https_proxy=None, http_timeout=60, verify=None
+        self,
+        hookurl,
+        http_proxy=None,
+        https_proxy=None,
+        http_timeout=60,
+        verify: Optional[bool] = True,
     ):
         self.payload = {}
         self.hookurl = hookurl

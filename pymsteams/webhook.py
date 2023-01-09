@@ -1,5 +1,9 @@
+import logging
+from types import NoneType
 import requests
-from typing import Optional
+from typing import Optional, Union
+
+logger = logging.getLogger(__name__)
 
 
 try:
@@ -18,9 +22,8 @@ def send_webhook_sync(
     url: str,
     payload,
     proxies: Optional[dict] = {},
-    timeout: Optional[int] = 60,
-    verify: Optional[bool] = None,
-    legacy_check: Optional[bool] = False,
+    timeout: Optional[Union[float, tuple, NoneType]] = 60,
+    verify: Optional[bool] = True,
 ):
 
     response = requests.post(
@@ -28,14 +31,18 @@ def send_webhook_sync(
         json=payload,
         headers=HTTP_HEADERS,
         proxies=proxies,
+        timeout=timeout,
     )
 
-    if legacy_check:
-        if response.status_code != requests.codes.ok or response.text != "1":
-            raise TeamsWebhookException(response.text)
+    try:
+        response.raise_for_status()
+    except Exception as Argument:
+        logger.error("Webhook failed with status code: %s", response.status_code)
+        logger.debug("Response Text: %s", response.text)
+        logger.exception(Argument)
 
-    if response.status_code != requests.codes.ok:
-        raise TeamsWebhookException(response.text)
+        if verify:
+            raise TeamsWebhookException("HTTP call failed. See previous logging")
 
     return response.status_code
 
@@ -44,8 +51,8 @@ async def send_webhook_async(
     url: str,
     payload,
     # http_proxy: Optional[dict] = {},
-    timeout: Optional[int] = 60,
-    verify: Optional[bool] = None,
+    timeout: Optional[float] = 5.0,
+    verify: Optional[bool] = True,
 ):
 
     if not ASYNC_OK:
@@ -53,14 +60,23 @@ async def send_webhook_async(
             "Missing python dependencies. Was pymsteams installed with the async option?"
         )
 
-    async with httpx.AsyncClient() as client:
+    async with httpx.AsyncClient(timeout=timeout) as client:
         response = await client.post(
             url,
             json=payload,
             headers=HTTP_HEADERS,
         )
 
-        if response.status_code != requests.codes.ok:
-            raise TeamsWebhookException(response.text)
+    try:
+        response.raise_for_status()
+    except Exception as Argument:
+        logger.error("Webhook failed with status code: %s", response.status_code)
+        logger.debug("Response Text: %s", response.text)
+        logger.exception(Argument)
 
-        return True
+        if verify:
+            raise TeamsWebhookException("HTTP call failed. See previous logging")
+
+        return False
+
+    return True

@@ -164,22 +164,6 @@ class TestLegacyCards(TestCase):
             teams_message.send()
 
     @requests_mock.Mocker()
-    def test_bad_resp_text(self, req_mock: requests_mock.mocker.Mocker):
-
-        req_mock.register_uri(
-            "POST",
-            FAKE_URL,
-            text="not cool",
-            status_code=200,
-        )
-
-        teams_message = pymsteams.connectorcard(FAKE_URL)
-        teams_message.text("This is a simple text message.")
-
-        with self.assertRaises(pymsteams.exceptions.TeamsWebhookException):
-            teams_message.send()
-
-    @requests_mock.Mocker()
     def test_sectioned_message(self, req_mock: requests_mock.mocker.Mocker):
         """
         Send a message with sections
