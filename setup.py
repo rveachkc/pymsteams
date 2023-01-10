@@ -58,7 +58,6 @@ setup(
     packages=["pymsteams"],
     install_requires=[
         "requests>=2.20.0",
-        # 'pyadaptivecards>=0.1.1',
     ],
     extras_require={"async": ["httpx>=0.18.2"]},
     python_requires=">=3.6",

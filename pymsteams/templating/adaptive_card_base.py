@@ -3,7 +3,7 @@ from typing import Optional
 
 def adaptive_card_base(content: dict, contentUrl: Optional[str] = None):
 
-    return {
+    card_base = {
         "type": "message",
         "attachments": [
             {
@@ -13,3 +13,5 @@ def adaptive_card_base(content: dict, contentUrl: Optional[str] = None):
             }
         ],
     }
+
+    return card_base
