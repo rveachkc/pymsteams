@@ -113,19 +113,27 @@ class potentialaction:
         self.payload["inputs"].append(input)
         return self
 
-    def addAction(self, _type, _name, _target,_body=None):
+    def addAction(self, _type, _name, _target,_body=None,_extra_headers=None):
+        #extra_headers is a list of dictionaries {"name": "headername", "value": "headervalue"}
         if "actions" not in self.payload.keys():
             self.payload["actions"] = []
-        action = {
+        
+        if _body:
+            action["body"] = _body
+            
+        if _extra_headers:
+            action = {
+            "@type": _type,
+            "name": _name,
+            "target": _target,
+            "headers": [d for d in _extra_headers]
+        }
+        else:
+            action = {
             "@type": _type,
             "name": _name,
             "target": _target
         }
-        if _body:
-            action["body"] = _body
-
-        self.payload["actions"].append(action)
-        return self
 
     def addOpenURI(self, _name, _targets):
         """
