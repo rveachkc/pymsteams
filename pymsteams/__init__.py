@@ -254,10 +254,10 @@ class connectorcard:
         self.last_http_response = None
 
         if http_proxy:
-            self.proxies['http'] = http_proxy
+            self.proxies['http://'] = http_proxy
 
         if https_proxy:
-            self.proxies['https'] = https_proxy
+            self.proxies['https://'] = https_proxy
 
         if not self.proxies:
             self.proxies = None
