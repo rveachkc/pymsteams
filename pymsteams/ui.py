@@ -448,8 +448,16 @@ class AsyncConnector(Connector):
 
             self.lastHttp: httpx.Response = response
 
-            if response.status_code == httpx.codes.OK and response.text == '1':
+            json_res = response.json()
+
+            if "status" in json_res.keys():
+                status = json_res.pop('status')
+
+            if int(status) == 200:
                 return True
+
+            elif int(status) == 429:
+                raise RateLimited(json_res.pop('retry_after')
             
             else:
                 raise TeamsWebhookException(response.text)
