@@ -152,7 +152,7 @@ myTeamsMessage = pymsteams.connectorcard("<Microsoft Webhook URL>")
 
 myTeamsPotentialAction1 = pymsteams.potentialaction(_name = "Add a comment")
 myTeamsPotentialAction1.addInput("TextInput","comment","Add a comment here",False)
-myTeamsPotentialAction1.addAction("HttpPost","Add Comment","https://..."") 
+myTeamsPotentialAction1.addAction("HttpPost","Add Comment","https://...") 
 
 myTeamsPotentialAction2 = pymsteams.potentialaction(_name = "Set due date")
 myTeamsPotentialAction2.addInput("DateInput","dueDate","Enter due date")
