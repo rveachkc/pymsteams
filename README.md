@@ -1,5 +1,9 @@
 # pymsteams
 
+## Important: [Ongoing Support and Request for Maintainers](https://github.com/rveachkc/pymsteams/issues/151)
+
+Looking for new maintainers. Please see https://github.com/rveachkc/pymsteams/issues/151
+
 [![CircleCI](https://circleci.com/gh/rveachkc/pymsteams/tree/master.svg?style=shield)](https://circleci.com/gh/rveachkc/pymsteams/tree/master) [![PyPI version](https://badge.fury.io/py/pymsteams.svg)](https://badge.fury.io/py/pymsteams)
 
 Python Wrapper Library to send requests to Microsoft Teams Webhooks.
