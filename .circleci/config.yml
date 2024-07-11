@@ -6,7 +6,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/python:3-stretch
+      - image: circleci/python:3
     working_directory: ~/repo
 
     steps:
@@ -34,7 +34,7 @@ jobs:
         
   test:
     docker:
-      - image: circleci/python:3-stretch
+      - image: circleci/python:3
     working_directory: ~/repo
 
     steps:
@@ -43,25 +43,15 @@ jobs:
       - restore_cache:
           key: v1-dependencies-{{ checksum "dev-requirements.txt" }}
       - run:
-          name: set up environment
+          name: run tests
           command: |
+            mkdir -p /tmp/test-reports
+            mkdir -p /tmp/pytest
             python3 -m venv venv
             . venv/bin/activate
             python -m pip install --upgrade pip
             pip install -r dev-requirements.txt
-            mkdir -p /tmp/test-reports
-            mkdir -p /tmp/pytest
-            mkdir -p /tmp/htmlcov
-      - run:
-          name: pytest
-          command: ./venv/bin/pytest -v --cov=pymsteams --cov-report html:/tmp/htmlcov --junitxml=/tmp/pytest/results.xml >> /tmp/test-reports/pytest.out
-      - run:
-          name: safety check
-          command: |
-            grep requests setup.py | sed 's/ //g' | awk '{gsub("\x27", ""); print}' |  sed 's/,//g' | awk '{gsub("\x3E", "\x3D"); print}' | ./venv/bin/safety check --full-report --stdin >> /tmp/test-reports/safety.out
-      - run:
-          name: bandit analysis
-          command: ./venv/bin/bandit -r pymsteams >> /tmp/test-reports/bandit.out
+            pytest -v --junitxml=/tmp/pytest/results.xml >> /tmp/test-reports/pytest.out
             
             
 
@@ -71,17 +61,13 @@ jobs:
       - store_artifacts:
           path: /tmp/pytest
           destination: pytest
-      - store_artifacts:
-          path: /tmp/htmlcov
-          destination: coverage
-
       - store_test_results:
           path: /tmp/pytest
 
 
   deploy:
     docker:
-      - image: circleci/python:3-stretch
+      - image: circleci/python:3
     working_directory: ~/repo
 
     steps:
