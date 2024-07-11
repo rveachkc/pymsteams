@@ -54,14 +54,14 @@ jobs:
             mkdir -p /tmp/htmlcov
       - run:
           name: pytest
-          command: venv/bin/pytest -v --cov=pymsteams --cov-report html:/tmp/htmlcov --junitxml=/tmp/pytest/results.xml >> /tmp/test-reports/pytest.out
+          command: ./venv/bin/pytest -v --cov=pymsteams --cov-report html:/tmp/htmlcov --junitxml=/tmp/pytest/results.xml >> /tmp/test-reports/pytest.out
       - run:
           name: safety check
           command: |
-            grep requests setup.py | sed 's/ //g' | awk '{gsub("\x27", ""); print}' |  sed 's/,//g' | awk '{gsub("\x3E", "\x3D"); print}' | venv/bin/safety check --full-report --stdin >> /tmp/test-reports/safety.out
+            grep requests setup.py | sed 's/ //g' | awk '{gsub("\x27", ""); print}' |  sed 's/,//g' | awk '{gsub("\x3E", "\x3D"); print}' | ./venv/bin/safety check --full-report --stdin >> /tmp/test-reports/safety.out
       - run:
           name: bandit analysis
-          command: venv/bin/bandit -r pymsteams >> /tmp/test-reports/bandit.out
+          command: ./venv/bin/bandit -r pymsteams >> /tmp/test-reports/bandit.out
             
             
 
