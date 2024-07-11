@@ -240,7 +240,7 @@ class connectorcard:
         )
         self.last_http_response = r
 
-        if r.status_code == requests.codes.ok:  # pylint: disable=no-member
+        if 200 <= r.status_code < 300:  # pylint: disable=no-member
             return True
         else:
             raise TeamsWebhookException(r.text)
