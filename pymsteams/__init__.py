@@ -275,7 +275,7 @@ class async_connectorcard(connectorcard):
 
         headers = {"Content-Type": "application/json"}
 
-        async with httpx.AsyncClient(proxies=self.proxies, verify=self.verify) as client:
+        async with httpx.AsyncClient(mounts=self.proxies, verify=self.verify) as client:
             resp = await client.post(self.hookurl,
                                      json=self.payload,
                                      headers=headers,
