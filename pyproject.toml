@@ -1,0 +1,56 @@
+[build-system]
+requires = ["setuptools>=64", "setuptools-scm>=8"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pymsteams"
+dynamic = ["version"]
+description="Format messages and post to Microsoft Teams."
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = [
+    "requests>=2.20.0",
+]
+license = {file = "LICENSE"}
+keywords=['Microsoft', 'Teams']
+classifiers=[
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Information Technology",
+    "Intended Audience :: System Administrators",
+    "License :: OSI Approved :: Apache Software License",
+    "Operating System :: OS Independent",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Internet",
+    "Programming Language :: Python :: 3",
+    "Topic :: Office/Business",
+    "Topic :: Office/Business :: Groupware",
+]
+
+[project.optional-dependencies]
+async = [
+    "httpx>=0.28.1",
+]
+
+[project.urls]
+Homepage = "https://github.com/rveachkc/pymsteams"
+
+
+[tool.pytest.ini_options]
+pythonpath = [
+  "src/"
+]
+addopts = "-ra -q"
+testpaths = [
+    "tests",
+]
+
+[tool.uv]
+dev-dependencies = [
+    "pytest-cov>=6.0.0",
+    "pytest>=8.3.4",
+    "ruff>=0.8.6",
+]
+
+[tool.setuptools_scm]
+local_scheme = "no-local-version"
