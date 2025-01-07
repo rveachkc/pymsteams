@@ -7,11 +7,11 @@ import requests
 
 class TeamsWebhookException(Exception):
     """custom exception for failed webhook call"""
+
     pass
 
 
 class cardsection:
-
     def title(self, stitle):
         # title of the section
         self.payload["title"] = stitle
@@ -42,10 +42,7 @@ class cardsection:
         if "facts" not in self.payload.keys():
             self.payload["facts"] = []
 
-        newfact = {
-            "name": factname,
-            "value": factvalue
-        }
+        newfact = {"name": factname, "value": factvalue}
         self.payload["facts"].append(newfact)
         return self
 
@@ -69,7 +66,7 @@ class cardsection:
                 "@context": "http://schema.org",
                 "@type": "ViewAction",
                 "name": buttontext,
-                "target": [buttonurl]
+                "target": [buttonurl],
             }
         ]
         return self
@@ -90,16 +87,15 @@ class cardsection:
 
 
 class potentialaction:
-
     def addInput(self, _type, _id, title, isMultiline=None):
         if "inputs" not in self.payload.keys():
             self.payload["inputs"] = []
-        if (self.choices.dumpChoices() == []):
+        if self.choices.dumpChoices() == []:
             input = {
                 "@type": _type,
                 "id": _id,
                 "isMultiline": isMultiline,
-                "title": title
+                "title": title,
             }
         else:
             input = {
@@ -107,20 +103,16 @@ class potentialaction:
                 "id": _id,
                 "isMultiline": str(isMultiline).lower(),
                 "choices": self.choices.dumpChoices(),
-                "title": title
+                "title": title,
             }
 
         self.payload["inputs"].append(input)
         return self
 
-    def addAction(self, _type, _name, _target,_body=None):
+    def addAction(self, _type, _name, _target, _body=None):
         if "actions" not in self.payload.keys():
             self.payload["actions"] = []
-        action = {
-            "@type": _type,
-            "name": _name,
-            "target": _target
-        }
+        action = {"@type": _type, "name": _name, "target": _target}
         if _body:
             action["body"] = _body
 
@@ -160,17 +152,13 @@ class choice:
         self.choices = []
 
     def addChoices(self, _display, _value):
-        self.choices.append({
-            "display": _display,
-            "value": _value
-        })
+        self.choices.append({"display": _display, "value": _value})
 
     def dumpChoices(self):
         return self.choices
 
 
 class connectorcard:
-
     def text(self, mtext):
         self.payload["text"] = mtext
         return self
@@ -198,7 +186,7 @@ class connectorcard:
             "@context": "http://schema.org",
             "@type": "ViewAction",
             "name": buttontext,
-            "target": [buttonurl]
+            "target": [buttonurl],
         }
 
         self.payload["potentialAction"].append(thisbutton)
@@ -245,7 +233,9 @@ class connectorcard:
         else:
             raise TeamsWebhookException(r.text)
 
-    def __init__(self, hookurl, http_proxy=None, https_proxy=None, http_timeout=60, verify=None):
+    def __init__(
+        self, hookurl, http_proxy=None, https_proxy=None, http_timeout=60, verify=None
+    ):
         self.payload = {}
         self.hookurl = hookurl
         self.proxies = {}
@@ -254,34 +244,37 @@ class connectorcard:
         self.last_http_response = None
 
         if http_proxy:
-            self.proxies['http'] = http_proxy
+            self.proxies["http"] = http_proxy
 
         if https_proxy:
-            self.proxies['https'] = https_proxy
+            self.proxies["https"] = https_proxy
 
         if not self.proxies:
             self.proxies = None
 
 
 class async_connectorcard(connectorcard):
-
     async def send(self):
         try:
             import httpx
         except ImportError as e:
-            print("For use the asynchronous connector card, "
-                  "install the asynchronous version of the library via pip: pip install pymsteams[async]")
+            print(
+                "For use the asynchronous connector card, "
+                "install the asynchronous version of the library via pip: pip install pymsteams[async]"
+            )
             raise e
 
         headers = {"Content-Type": "application/json"}
 
         async with httpx.AsyncClient(mounts=self.proxies, verify=self.verify) as client:
-            resp = await client.post(self.hookurl,
-                                     json=self.payload,
-                                     headers=headers,
-                                     timeout=self.http_timeout)
+            resp = await client.post(
+                self.hookurl,
+                json=self.payload,
+                headers=headers,
+                timeout=self.http_timeout,
+            )
             self.last_http_response = resp
-            if resp.status_code == httpx.codes.OK and resp.text == '1':
+            if resp.status_code == httpx.codes.OK and resp.text == "1":
                 return True
             else:
                 raise TeamsWebhookException(resp.text)

@@ -1,8 +1,0 @@
-bandit
-httpx
-pytest
-pytest-cov
-PyYAML
-requests
-safety
-twine
