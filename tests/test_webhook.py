@@ -70,7 +70,7 @@ def test_send_sectioned_message():
     section_1.activityTitle("my activity title")
     section_1.activitySubtitle("my activity subtitle")
     section_1.activityImage(
-        "https://raw.githubusercontent.com/rveachkc/pymsteams/develop/test/desk_toys_1.jpg"
+        "https://raw.githubusercontent.com/rveachkc/pymsteams/master/tests/desk_toys_1.jpg"
     )
     section_1.activityText(
         "This is my activity Text.  You should see an activity image, activity title, activity subtitle, and this text (of course)."
@@ -88,7 +88,7 @@ def test_send_sectioned_message():
         "This is section 2.  You should see an image.  This section does not have facts or a title."
     )
     section_2.addImage(
-        "https://raw.githubusercontent.com/rveachkc/pymsteams/develop/test/desk_toys_2.jpg",
+        "https://raw.githubusercontent.com/rveachkc/pymsteams/master/tests/desk_toys_2.jpg",
         ititle="Pew Pew Pew",
     )
     teams_message.addSection(section_2)

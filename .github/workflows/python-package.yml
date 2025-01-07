@@ -21,14 +21,16 @@ jobs:
       - name: Install the project
         run: uv sync --all-extras --dev
 
-    #   - name: Run tests
-    #     run: uv run pytest tests --junit-xml=test-results.xml
+      - name: Run tests
+        env:
+            MS_TEAMS_WEBHOOK: https://httpbin.org/
+        run: uv run pytest tests --junit-xml=test-results.xml
 
-    #   - name: Upload test results
-    #     uses: actions/upload-artifact@v4
-    #     with:
-    #       name: pytest-results
-    #       path: test-results.xml
+      - name: Upload test results
+        uses: actions/upload-artifact@v4
+        with:
+          name: pytest-results
+          path: test-results.xml
 
       - name: Run Ruff
         run: uv run ruff check . --output-file ruff-results.xml --output-format junit
