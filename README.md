@@ -4,7 +4,7 @@
 
 Looking for new maintainers. Please see https://github.com/rveachkc/pymsteams/issues/151
 
-[![CircleCI](https://circleci.com/gh/rveachkc/pymsteams/tree/master.svg?style=shield)](https://circleci.com/gh/rveachkc/pymsteams/tree/master) [![PyPI version](https://badge.fury.io/py/pymsteams.svg)](https://badge.fury.io/py/pymsteams)
+[![PyPI version](https://badge.fury.io/py/pymsteams.svg)](https://badge.fury.io/py/pymsteams)
 
 Python Wrapper Library to send requests to Microsoft Teams Webhooks.
 Microsoft refers to these messages as Connector Cards.  A message can be sent with only the main Connector Card, or additional sections can be included into the message.
@@ -156,7 +156,7 @@ myTeamsMessage = pymsteams.connectorcard("<Microsoft Webhook URL>")
 
 myTeamsPotentialAction1 = pymsteams.potentialaction(_name = "Add a comment")
 myTeamsPotentialAction1.addInput("TextInput","comment","Add a comment here",False)
-myTeamsPotentialAction1.addAction("HttpPost","Add Comment","https://...") 
+myTeamsPotentialAction1.addAction("HttpPost","Add Comment","https://...")
 
 myTeamsPotentialAction2 = pymsteams.potentialaction(_name = "Set due date")
 myTeamsPotentialAction2.addInput("DateInput","dueDate","Enter due date")
@@ -185,7 +185,7 @@ myTeamsPotentialAction1 = pymsteams.potentialaction(_name = "Add a comment")
 # You can add a TextInput to your potential action like below - Please note the 2nd argment below as the id name
 myTeamsPotentialAction1.addInput("TextInput","comment","Add a comment here",False)
 # we use the 2nd argument above as the id name to parse the values into the body post like below.
-myTeamsPotentialAction1.addAction("HttpPost","Add Comment","https://...", "{{comment.value}}") 
+myTeamsPotentialAction1.addAction("HttpPost","Add Comment","https://...", "{{comment.value}}")
 myTeamsMessage.addPotentialAction(myTeamsPotentialAction1)
 
 
