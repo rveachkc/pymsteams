@@ -9,7 +9,7 @@ description="Format messages and post to Microsoft Teams."
 readme = "README.md"
 requires-python = ">=3.9"
 dependencies = [
-    "requests>=2.20.0",
+    "niquests>=3.13.0",
 ]
 license = {file = "LICENSE"}
 keywords=['Microsoft', 'Teams']
