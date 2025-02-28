@@ -2,7 +2,7 @@
 
 # https://github.com/rveachkc/pymsteams/
 # reference: https://dev.outlook.com/connectors/reference
-import requests
+import niquests
 
 
 class TeamsWebhookException(Exception):
@@ -91,14 +91,14 @@ class potentialaction:
         if "inputs" not in self.payload.keys():
             self.payload["inputs"] = []
         if self.choices.dumpChoices() == []:
-            input = {
+            teams_input = {
                 "@type": _type,
                 "id": _id,
                 "isMultiline": isMultiline,
                 "title": title,
             }
         else:
-            input = {
+            teams_input = {
                 "@type": _type,
                 "id": _id,
                 "isMultiline": str(isMultiline).lower(),
@@ -106,7 +106,7 @@ class potentialaction:
                 "title": title,
             }
 
-        self.payload["inputs"].append(input)
+        self.payload["inputs"].append(teams_input)
         return self
 
     def addAction(self, _type, _name, _target, _body=None):
@@ -218,7 +218,7 @@ class connectorcard:
 
     def send(self):
         headers = {"Content-Type": "application/json"}
-        r = requests.post(
+        r = niquests.post(
             self.hookurl,
             json=self.payload,
             headers=headers,
