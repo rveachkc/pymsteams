@@ -9,7 +9,7 @@ description="Format messages and post to Microsoft Teams."
 readme = "README.md"
 requires-python = ">=3.9"
 dependencies = [
-    "requests>=2.20.0",
+    "niquests>=3.14,<4",
 ]
 license = {file = "LICENSE"}
 keywords=['Microsoft', 'Teams']
@@ -28,9 +28,7 @@ classifiers=[
 ]
 
 [project.optional-dependencies]
-async = [
-    "httpx>=0.28.1",
-]
+async = []
 
 [project.urls]
 Homepage = "https://github.com/rveachkc/pymsteams"

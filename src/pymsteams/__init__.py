@@ -2,7 +2,7 @@
 
 # https://github.com/rveachkc/pymsteams/
 # reference: https://dev.outlook.com/connectors/reference
-import requests
+import niquests as requests
 
 
 class TeamsWebhookException(Exception):
@@ -255,29 +255,22 @@ class connectorcard:
 
 class async_connectorcard(connectorcard):
     async def send(self):
-        try:
-            import httpx
-        except ImportError as e:
-            print(
-                "For use the asynchronous connector card, "
-                "install the asynchronous version of the library via pip: pip install pymsteams[async]"
-            )
-            raise e
-
         headers = {"Content-Type": "application/json"}
 
-        async with httpx.AsyncClient(mounts=self.proxies, verify=self.verify) as client:
-            resp = await client.post(
-                self.hookurl,
-                json=self.payload,
-                headers=headers,
-                timeout=self.http_timeout,
-            )
-            self.last_http_response = resp
-            if resp.status_code == httpx.codes.OK and resp.text == "1":
-                return True
-            else:
-                raise TeamsWebhookException(resp.text)
+        r = await requests.apost(
+            self.hookurl,
+            json=self.payload,
+            headers=headers,
+            proxies=self.proxies,
+            timeout=self.http_timeout,
+            verify=self.verify,
+        )
+        self.last_http_response = r
+
+        if 200 <= r.status_code < 300:  # pylint: disable=no-member
+            return True
+        else:
+            raise TeamsWebhookException(r.text)
 
 
 def formaturl(display, url):
