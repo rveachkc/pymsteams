@@ -8,8 +8,6 @@ import requests
 class TeamsWebhookException(Exception):
     """custom exception for failed webhook call"""
 
-    pass
-
 
 class cardsection:
     def title(self, stitle):
