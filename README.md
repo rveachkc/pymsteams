@@ -81,7 +81,9 @@ myTeamsMessage.title("This is my message title")
 
 #### Add a link button
 ```python
-myTeamsMessage.addLinkButton("This is the button Text", "https://github.com/rveachkc/pymsteams/")
+myTeamsMessage.addLinkButton(
+    "This is the button Text", "https://github.com/rveachkc/pymsteams/"
+)
 ```
 
 #### Change URL
@@ -154,19 +156,19 @@ To find out more information on what actions can be used, please visit https://d
 ```python
 myTeamsMessage = pymsteams.connectorcard("<Microsoft Webhook URL>")
 
-myTeamsPotentialAction1 = pymsteams.potentialaction(_name = "Add a comment")
-myTeamsPotentialAction1.addInput("TextInput","comment","Add a comment here",False)
-myTeamsPotentialAction1.addAction("HttpPost","Add Comment","https://...")
+myTeamsPotentialAction1 = pymsteams.potentialaction(_name="Add a comment")
+myTeamsPotentialAction1.addInput("TextInput", "comment", "Add a comment here", False)
+myTeamsPotentialAction1.addAction("HttpPost", "Add Comment", "https://...")
 
-myTeamsPotentialAction2 = pymsteams.potentialaction(_name = "Set due date")
-myTeamsPotentialAction2.addInput("DateInput","dueDate","Enter due date")
-myTeamsPotentialAction2.addAction("HttpPost","save","https://...")
+myTeamsPotentialAction2 = pymsteams.potentialaction(_name="Set due date")
+myTeamsPotentialAction2.addInput("DateInput", "dueDate", "Enter due date")
+myTeamsPotentialAction2.addAction("HttpPost", "save", "https://...")
 
-myTeamsPotentialAction3 = pymsteams.potentialaction(_name = "Change Status")
-myTeamsPotentialAction3.choices.addChoices("In progress","0")
-myTeamsPotentialAction3.choices.addChoices("Active","1")
-myTeamsPotentialAction3.addInput("MultichoiceInput","list","Select a status",False)
-myTeamsPotentialAction3.addAction("HttpPost","Save","https://...")
+myTeamsPotentialAction3 = pymsteams.potentialaction(_name="Change Status")
+myTeamsPotentialAction3.choices.addChoices("In progress", "0")
+myTeamsPotentialAction3.choices.addChoices("Active", "1")
+myTeamsPotentialAction3.addInput("MultichoiceInput", "list", "Select a status", False)
+myTeamsPotentialAction3.addAction("HttpPost", "Save", "https://...")
 
 myTeamsMessage.addPotentialAction(myTeamsPotentialAction1)
 myTeamsMessage.addPotentialAction(myTeamsPotentialAction2)
@@ -181,11 +183,13 @@ myTeamsMessage.send()
 ```python
 myTeamsMessage = pymsteams.connectorcard("<Microsoft Webhook URL>")
 
-myTeamsPotentialAction1 = pymsteams.potentialaction(_name = "Add a comment")
+myTeamsPotentialAction1 = pymsteams.potentialaction(_name="Add a comment")
 # You can add a TextInput to your potential action like below - Please note the 2nd argment below as the id name
-myTeamsPotentialAction1.addInput("TextInput","comment","Add a comment here",False)
+myTeamsPotentialAction1.addInput("TextInput", "comment", "Add a comment here", False)
 # we use the 2nd argument above as the id name to parse the values into the body post like below.
-myTeamsPotentialAction1.addAction("HttpPost","Add Comment","https://...", "{{comment.value}}")
+myTeamsPotentialAction1.addAction(
+    "HttpPost", "Add Comment", "https://...", "{{comment.value}}"
+)
 myTeamsMessage.addPotentialAction(myTeamsPotentialAction1)
 
 
